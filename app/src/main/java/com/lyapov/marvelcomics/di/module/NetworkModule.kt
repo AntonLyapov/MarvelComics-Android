@@ -1,8 +1,6 @@
 package com.lyapov.marvelcomics.di.module
 
-import com.lyapov.marvelcomics.BuildConfig
 import com.lyapov.marvelcomics.api.MarvelApiService
-import com.lyapov.marvelcomics.di.scopes.ApplicationScope
 import com.lyapov.marvelcomics.util.Constants
 import dagger.Module
 import dagger.Provides
@@ -22,9 +20,8 @@ import javax.inject.Singleton
 @Module
 class NetworkModule {
 
+    @Singleton
     @Provides
-//    @Singleton
-    @ApplicationScope
     internal fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         val retrofitBuilder = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
@@ -46,13 +43,11 @@ class NetworkModule {
     }
 
     @Provides
-    @ApplicationScope
     internal fun provideMarvelApi(retrofit: Retrofit): MarvelApiService {
         return retrofit.create(MarvelApiService::class.java)
     }
 
     @Provides
-    @ApplicationScope
     fun getOkHttpCleint(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(httpLoggingInterceptor)
@@ -60,7 +55,6 @@ class NetworkModule {
     }
 
     @Provides
-    @ApplicationScope
     fun getHttpLoggingInterceptor(): HttpLoggingInterceptor {
         val httpLoggingInterceptor = HttpLoggingInterceptor()
         httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY

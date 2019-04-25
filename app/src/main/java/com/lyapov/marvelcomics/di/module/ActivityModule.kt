@@ -1,8 +1,8 @@
 package com.lyapov.marvelcomics.di.module
 
-import android.app.Activity
 import dagger.Module
-import dagger.Provides
+import com.lyapov.marvelcomics.ui.main.MainActivity
+import dagger.android.ContributesAndroidInjector
 
 /*
  *  *  ****************************************************************
@@ -12,16 +12,8 @@ import dagger.Provides
  *  *  ****************************************************************
  */
 @Module
-class ActivityModule(private var activity: Activity) {
+abstract class ActivityModule {
 
-    @Provides
-    fun provideActivity(): Activity {
-        return activity
-    }
-
-//    @Provides
-//    fun providePresenter(): MainContract.Presenter {
-//        return MainPresenter()
-//    }
-
+    @ContributesAndroidInjector
+    abstract fun bindMainActivity(): MainActivity
 }

@@ -1,10 +1,9 @@
-package com.lyapov.marvelcomics.ui
+package com.lyapov.marvelcomics.ui.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.lyapov.marvelcomics.R
-import javax.inject.Inject
-import com.lyapov.marvelcomics.api.MarvelApiService
+import com.lyapov.marvelcomics.ui.base.BaseActivity
+import com.lyapov.marvelcomics.ui.main.list.ComicsFragment
 
 
 /*
@@ -14,15 +13,16 @@ import com.lyapov.marvelcomics.api.MarvelApiService
  *  *  *                  Copyright by Pixum, 04 2019                 *
  *  *  ****************************************************************
  */
-class MainActivity : AppCompatActivity() {
-
-//    @Inject
-//    var marvelApiService: MarvelApiService? = null
+class MainActivity : BaseActivity() {
+    override fun layoutResId(): Int {
+        return R.layout.activity_main
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        //https://gateway.marvel.com:443/v1/public/comics?apikey=8bf61f3a29c9384471be1b7e91e6c6ec
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction().add(R.id.content, ComicsFragment()).commit()
+        }
     }
 }

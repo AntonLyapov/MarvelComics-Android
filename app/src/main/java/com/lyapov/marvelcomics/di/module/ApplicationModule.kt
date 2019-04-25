@@ -1,10 +1,6 @@
 package com.lyapov.marvelcomics.di.module
 
-import android.app.Application
-import com.lyapov.marvelcomics.MarvelApplication
 import dagger.Module
-import dagger.Provides
-import javax.inject.Singleton
 
 /*
  *  *  ****************************************************************
@@ -13,12 +9,11 @@ import javax.inject.Singleton
  *  *  *                  Copyright by Pixum, 04 2019                 *
  *  *  ****************************************************************
  */
-@Module
-class ApplicationModule(private val application: MarvelApplication) {
+@Module(
+    includes = [
+        ViewModelModule::class,
+        NetworkModule::class]
+)
+class ApplicationModule {
 
-    @Provides
-    @Singleton
-    fun provideApplication(): Application {
-        return application
-    }
 }

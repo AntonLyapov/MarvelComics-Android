@@ -1,6 +1,9 @@
 package com.lyapov.marvelcomics.di.module
 
+import com.lyapov.marvelcomics.ui.main.details.DetailsFragment
+import com.lyapov.marvelcomics.ui.main.list.ComicsFragment
 import dagger.Module
+import dagger.android.ContributesAndroidInjector
 
 /*
  *  *  ****************************************************************
@@ -10,6 +13,11 @@ import dagger.Module
  *  *  ****************************************************************
  */
 @Module
-class FragmentModule {
+abstract class FragmentModule {
 
+    @ContributesAndroidInjector
+    abstract fun provideComicsFragment(): ComicsFragment
+
+    @ContributesAndroidInjector
+    abstract fun provideDetailsFragment(): DetailsFragment
 }

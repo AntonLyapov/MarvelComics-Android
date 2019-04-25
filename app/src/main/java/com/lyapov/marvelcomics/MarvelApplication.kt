@@ -1,7 +1,12 @@
 package com.lyapov.marvelcomics
 
+import android.app.Activity
 import androidx.multidex.MultiDexApplication
 import com.lyapov.marvelcomics.di.component.DaggerApplicationComponent
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasActivityInjector
+import javax.inject.Inject
 
 /*
  *  *  ****************************************************************
@@ -10,16 +15,19 @@ import com.lyapov.marvelcomics.di.component.DaggerApplicationComponent
  *  *  *                  Copyright by Pixum, 04 2019                 *
  *  *  ****************************************************************
  */
-class MarvelApplication: MultiDexApplication() {
+class MarvelApplication : MultiDexApplication(), HasActivityInjector {
+
+    @Inject
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
     override fun onCreate() {
         super.onCreate()
 
-        DaggerApplicationComponent.create()
+        DaggerApplicationComponent.builder()
+            .application(this)
+            .build()
             .inject(this)
     }
 
-    companion object {
-        lateinit var instance: MarvelApplication private set
-    }
+    override fun activityInjector(): AndroidInjector<Activity> = dispatchingAndroidInjector
 }

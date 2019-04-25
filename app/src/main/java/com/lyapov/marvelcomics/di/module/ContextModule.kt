@@ -1,10 +1,11 @@
 package com.lyapov.marvelcomics.di.module
 
+import android.app.Application
 import android.content.Context
-import com.lyapov.marvelcomics.di.qualifiers.ApplicationContext
-import com.lyapov.marvelcomics.di.scopes.ApplicationScope
 import dagger.Module
-import dagger.Provides
+import dagger.Binds
+
+
 
 /*
  *  *  ****************************************************************
@@ -14,12 +15,8 @@ import dagger.Provides
  *  *  ****************************************************************
  */
 @Module
-class ContextModule(private val context: Context) {
+abstract class ContextModule {
 
-    @Provides
-    @ApplicationScope
-    @ApplicationContext
-    fun provideContext(): Context {
-        return context
-    }
+    @Binds
+    abstract fun provideContext(application: Application): Context
 }
