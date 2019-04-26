@@ -1,8 +1,4 @@
-package com.lyapov.marvelcomics.di.module
-
-import com.lyapov.marvelcomics.ui.main.MainActivity
-import dagger.Module
-import dagger.android.ContributesAndroidInjector
+package com.lyapov.marvelcomics.models.summary
 
 /*
  *  *  ****************************************************************
@@ -11,9 +7,4 @@ import dagger.android.ContributesAndroidInjector
  *  *  *                  Copyright by Pixum, 04 2019                 *
  *  *  ****************************************************************
  */
-@Module
-abstract class ActivityModule {
-
-    @ContributesAndroidInjector
-    abstract fun bindMainActivity(): MainActivity
-}
+class CharacterSummary: BaseRoleSummary()

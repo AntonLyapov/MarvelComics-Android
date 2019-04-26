@@ -1,11 +1,9 @@
-package com.lyapov.marvelcomics.api
+package com.lyapov.marvelcomics.network
 
-import com.lyapov.marvelcomics.models.Comic
-import com.lyapov.marvelcomics.util.Constants
+import com.lyapov.marvelcomics.network.response.ComicsRespone
 import io.reactivex.Single
-import retrofit2.Call
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 /*
  *  *  ****************************************************************
@@ -16,5 +14,7 @@ import retrofit2.http.GET
  */
 interface MarvelApiService {
     @GET("v1/public/comics")
-    fun getComics(): Single<ArrayList<Comic>>
+    fun getComics(
+        @Query("format") format: String
+    ): Single<ComicsRespone>
 }

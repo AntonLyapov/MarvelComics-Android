@@ -1,8 +1,9 @@
-package com.lyapov.marvelcomics.api
+package com.lyapov.marvelcomics.models
 
-import com.lyapov.marvelcomics.models.Comic
-import io.reactivex.Single
-import javax.inject.Inject
+import androidx.room.ColumnInfo
+import androidx.room.PrimaryKey
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
 /*
  *  *  ****************************************************************
@@ -12,9 +13,10 @@ import javax.inject.Inject
  *  *  *          Copyright by 1st Online Solutions, 04 2019           *
  *  *  ****************************************************************
  */
-class ComicsRepository @Inject constructor(private val api: MarvelApiService) {
-
-    fun getComics(): Single<ArrayList<Comic>> {
-        return api.getComics()
-    }
+abstract class BaseDatabaseModel {
+    @Expose
+    @SerializedName("id")
+    @PrimaryKey
+    @ColumnInfo(name = "id")
+    var id: Int? = null
 }

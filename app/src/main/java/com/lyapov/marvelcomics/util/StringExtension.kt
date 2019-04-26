@@ -1,8 +1,6 @@
-package com.lyapov.marvelcomics.di.module
+package com.lyapov.marvelcomics.util
 
-import com.lyapov.marvelcomics.ui.main.MainActivity
-import dagger.Module
-import dagger.android.ContributesAndroidInjector
+import java.security.MessageDigest
 
 /*
  *  *  ****************************************************************
@@ -11,9 +9,10 @@ import dagger.android.ContributesAndroidInjector
  *  *  *                  Copyright by Pixum, 04 2019                 *
  *  *  ****************************************************************
  */
-@Module
-abstract class ActivityModule {
-
-    @ContributesAndroidInjector
-    abstract fun bindMainActivity(): MainActivity
+fun String.md5(): String {
+    val md = MessageDigest.getInstance("MD5")
+    val digested = md.digest(toByteArray())
+    return digested.joinToString("") {
+        String.format("%02x", it)
+    }
 }

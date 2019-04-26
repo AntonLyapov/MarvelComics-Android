@@ -1,8 +1,7 @@
-package com.lyapov.marvelcomics.di.module
+package com.lyapov.marvelcomics.models.summary
 
-import com.lyapov.marvelcomics.ui.main.MainActivity
-import dagger.Module
-import dagger.android.ContributesAndroidInjector
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
 /*
  *  *  ****************************************************************
@@ -11,9 +10,9 @@ import dagger.android.ContributesAndroidInjector
  *  *  *                  Copyright by Pixum, 04 2019                 *
  *  *  ****************************************************************
  */
-@Module
-abstract class ActivityModule {
+open class BaseRoleSummary: BaseSummary() {
 
-    @ContributesAndroidInjector
-    abstract fun bindMainActivity(): MainActivity
+    @Expose
+    @SerializedName("role")
+    val role: String? = null
 }

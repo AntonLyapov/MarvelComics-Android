@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Comic item -->
+    <dimen name="item_comic_card_margin_vertical">6dp</dimen>
+    <dimen name="item_comic_card_margin_horizontal">12dp</dimen>
+    <dimen name="item_comic_card_height">100dp</dimen>
+    <dimen name="item_comic_card_image_size">@dimen/item_comic_card_height</dimen>
+</resources>

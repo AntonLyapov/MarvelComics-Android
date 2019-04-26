@@ -2,9 +2,8 @@ package com.lyapov.marvelcomics.di.module
 
 import android.app.Application
 import android.content.Context
-import dagger.Module
 import dagger.Binds
-
+import dagger.Module
 
 
 /*

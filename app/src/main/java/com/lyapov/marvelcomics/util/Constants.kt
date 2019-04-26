@@ -8,7 +8,5 @@ package com.lyapov.marvelcomics.util
  *  *  ****************************************************************
  */
 class Constants {
-    companion object {
-        const val MARVEL_BASE_URL = "https://gateway.marvel.com:443/"
-    }
+
 }

@@ -1,8 +1,6 @@
-package com.lyapov.marvelcomics.di.module
+package com.lyapov.marvelcomics.models.list
 
-import com.lyapov.marvelcomics.ui.main.MainActivity
-import dagger.Module
-import dagger.android.ContributesAndroidInjector
+import com.lyapov.marvelcomics.models.summary.CreatorSummary
 
 /*
  *  *  ****************************************************************
@@ -11,9 +9,4 @@ import dagger.android.ContributesAndroidInjector
  *  *  *                  Copyright by Pixum, 04 2019                 *
  *  *  ****************************************************************
  */
-@Module
-abstract class ActivityModule {
-
-    @ContributesAndroidInjector
-    abstract fun bindMainActivity(): MainActivity
-}
+class CreatorList: BaseList<CreatorSummary>()

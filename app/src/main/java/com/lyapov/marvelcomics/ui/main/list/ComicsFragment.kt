@@ -3,12 +3,12 @@ package com.lyapov.marvelcomics.ui.main.list
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
-import com.lyapov.marvelcomics.ui.base.BaseFragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.DividerItemDecoration
-import com.lyapov.marvelcomics.R
-import kotlinx.android.synthetic.main.fragment_comics.*
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.lyapov.marvelcomics.R
+import com.lyapov.marvelcomics.ui.base.BaseFragment
+import kotlinx.android.synthetic.main.fragment_comics.*
 
 
 class ComicsFragment : BaseFragment<ComicsViewModel>() {

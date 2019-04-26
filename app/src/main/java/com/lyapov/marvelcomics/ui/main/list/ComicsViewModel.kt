@@ -1,21 +1,23 @@
 package com.lyapov.marvelcomics.ui.main.list
 
-import androidx.lifecycle.ViewModel
-import io.reactivex.disposables.CompositeDisposable
-import androidx.lifecycle.MutableLiveData
-import com.lyapov.marvelcomics.models.Comic
-import javax.inject.Inject
 import androidx.lifecycle.LiveData
-import com.lyapov.marvelcomics.api.ComicsRepository
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import com.lyapov.marvelcomics.models.Comic
+import com.lyapov.marvelcomics.network.ComicsRepository
+import com.lyapov.marvelcomics.network.response.ComicsRespone
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
-import io.reactivex.android.schedulers.AndroidSchedulers
 import retrofit2.Retrofit
+import javax.inject.Inject
 
 
 class ComicsViewModel @Inject constructor(
     private val retrofit: Retrofit,
-    private val comicsRepository: ComicsRepository): ViewModel() {
+    private val comicsRepository: ComicsRepository
+): ViewModel() {
 
     private var disposable: CompositeDisposable = CompositeDisposable()
 
@@ -44,9 +46,9 @@ class ComicsViewModel @Inject constructor(
 
         disposable.add(
             comicsRepository.getComics().subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread()).subscribeWith(object : DisposableSingleObserver<ArrayList<Comic>>() {
-                override fun onSuccess(value: ArrayList<Comic>) {
-                    comics.value = value
+            .observeOn(AndroidSchedulers.mainThread()).subscribeWith(object : DisposableSingleObserver<ComicsRespone>() {
+                override fun onSuccess(value: ComicsRespone) {
+                    comics.value = value.data?.results
 
                     requestError.value = null
                     loading.value = false

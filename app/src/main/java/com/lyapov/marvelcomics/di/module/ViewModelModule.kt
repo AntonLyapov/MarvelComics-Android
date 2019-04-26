@@ -1,13 +1,13 @@
 package com.lyapov.marvelcomics.di.module
 
-import dagger.Module
-import androidx.lifecycle.ViewModelProvider
-import dagger.Binds
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.lyapov.marvelcomics.di.factory.ViewModelFactory
 import com.lyapov.marvelcomics.di.factory.ViewModelKey
 import com.lyapov.marvelcomics.ui.main.details.DetailsViewModel
 import com.lyapov.marvelcomics.ui.main.list.ComicsViewModel
+import dagger.Binds
+import dagger.Module
 import dagger.multibindings.IntoMap
 
 /*

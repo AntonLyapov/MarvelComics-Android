@@ -1,11 +1,11 @@
 package com.lyapov.marvelcomics.di.factory
 
 import androidx.annotation.NonNull
-import androidx.lifecycle.ViewModelProvider
-import javax.inject.Singleton
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import javax.inject.Inject
 import javax.inject.Provider
+import javax.inject.Singleton
 
 
 @Singleton

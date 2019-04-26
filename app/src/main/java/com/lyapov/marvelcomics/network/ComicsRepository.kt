@@ -1,8 +1,9 @@
-package com.lyapov.marvelcomics.di.module
+package com.lyapov.marvelcomics.network
 
-import com.lyapov.marvelcomics.ui.main.MainActivity
-import dagger.Module
-import dagger.android.ContributesAndroidInjector
+import com.lyapov.marvelcomics.models.Comic
+import com.lyapov.marvelcomics.network.response.ComicsRespone
+import io.reactivex.Single
+import javax.inject.Inject
 
 /*
  *  *  ****************************************************************
@@ -11,9 +12,9 @@ import dagger.android.ContributesAndroidInjector
  *  *  *                  Copyright by Pixum, 04 2019                 *
  *  *  ****************************************************************
  */
-@Module
-abstract class ActivityModule {
+class ComicsRepository @Inject constructor(private val api: MarvelApiService) {
 
-    @ContributesAndroidInjector
-    abstract fun bindMainActivity(): MainActivity
+    fun getComics(): Single<ComicsRespone> {
+        return api.getComics("comic")
+    }
 }

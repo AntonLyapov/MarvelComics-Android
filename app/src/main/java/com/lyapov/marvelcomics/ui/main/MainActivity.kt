@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.lyapov.marvelcomics.R
 import com.lyapov.marvelcomics.ui.base.BaseActivity
 import com.lyapov.marvelcomics.ui.main.list.ComicsFragment
+import javax.inject.Inject
 
 
 /*
@@ -14,6 +15,7 @@ import com.lyapov.marvelcomics.ui.main.list.ComicsFragment
  *  *  ****************************************************************
  */
 class MainActivity : BaseActivity() {
+
     override fun layoutResId(): Int {
         return R.layout.activity_main
     }
