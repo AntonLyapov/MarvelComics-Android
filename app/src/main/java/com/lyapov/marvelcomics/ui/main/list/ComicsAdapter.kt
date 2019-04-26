@@ -11,6 +11,17 @@ class ComicsAdapter : RecyclerView.Adapter<ComicsAdapter.ComicViewHolder>() {
 
     private val data = ArrayList<Comic>()
 
+    fun setData(data: ArrayList<Comic>?) {
+        this.data.clear()
+        if (data == null) {
+            notifyDataSetChanged()
+            return
+        }
+
+        this.data.addAll(data)
+        notifyDataSetChanged()
+    }
+
     override fun getItemCount(): Int {
         return data.size
     }

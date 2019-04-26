@@ -1,6 +1,9 @@
 package com.lyapov.marvelcomics.di.module
 
+import com.lyapov.marvelcomics.api.ComicsRepository
+import com.lyapov.marvelcomics.api.MarvelApiService
 import dagger.Module
+import dagger.Provides
 
 /*
  *  *  ****************************************************************
@@ -12,8 +15,11 @@ import dagger.Module
 @Module(
     includes = [
         ViewModelModule::class,
-        NetworkModule::class]
+        NetworkModule::class
+    ]
 )
 class ApplicationModule {
 
+    @Provides
+    fun provideComicsRepository(api: MarvelApiService): ComicsRepository = ComicsRepository(api)
 }

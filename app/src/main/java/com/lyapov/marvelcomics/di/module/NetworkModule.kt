@@ -7,6 +7,7 @@ import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
@@ -22,9 +23,10 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    internal fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         val retrofitBuilder = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .baseUrl(Constants.MARVEL_BASE_URL)
 
 //        val client = OkHttpClient.Builder()
@@ -42,8 +44,9 @@ class NetworkModule {
         return retrofitBuilder.build()
     }
 
+    @Singleton
     @Provides
-    internal fun provideMarvelApi(retrofit: Retrofit): MarvelApiService {
+    fun provideMarvelApi(retrofit: Retrofit): MarvelApiService {
         return retrofit.create(MarvelApiService::class.java)
     }
 

@@ -16,5 +16,5 @@ import retrofit2.http.GET
  */
 interface MarvelApiService {
     @GET("v1/public/comics")
-    fun getComics(): Single<List<Comic>>
+    fun getComics(): Single<ArrayList<Comic>>
 }

@@ -26,7 +26,7 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(ComicsViewModel::class)
-    abstract fun bindListViewModel(viewModel: ComicsViewModel): ViewModel
+    abstract fun bindComicsViewModel(viewModel: ComicsViewModel): ViewModel
 
     @Binds
     @IntoMap
