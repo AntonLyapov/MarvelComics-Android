@@ -3,7 +3,7 @@ package com.lyapov.marvelcomics.ui.main.content.adapter
 import android.view.ViewGroup
 import com.lyapov.marvelcomics.R
 import com.lyapov.marvelcomics.base.recyclerview.BaseRecyclerAdapter
-import com.lyapov.marvelcomics.models.Comic
+import com.lyapov.marvelcomics.persistance.models.Comic
 
 /*
  *  *  ****************************************************************

@@ -5,7 +5,7 @@ import com.bumptech.glide.Glide
 import com.lyapov.marvelcomics.R
 import com.lyapov.marvelcomics.base.recyclerview.BaseRecyclerAdapter
 import com.lyapov.marvelcomics.base.recyclerview.BaseRecyclerViewHolder
-import com.lyapov.marvelcomics.models.Comic
+import com.lyapov.marvelcomics.persistance.models.Comic
 import kotlinx.android.synthetic.main.item_comic.view.*
 
 /*

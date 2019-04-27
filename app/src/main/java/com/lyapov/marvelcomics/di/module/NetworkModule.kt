@@ -1,7 +1,7 @@
 package com.lyapov.marvelcomics.di.module
 
 import com.lyapov.marvelcomics.network.MarvelApiService
-import com.lyapov.marvelcomics.network.MarvelAuthInterceptor
+import com.lyapov.marvelcomics.network.interceptors.MarvelAuthInterceptor
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.lyapov.marvelcomics.R
 import com.lyapov.marvelcomics.base.BaseActivity
-import com.lyapov.marvelcomics.models.Comic
+import com.lyapov.marvelcomics.persistance.models.Comic
 import com.lyapov.marvelcomics.ui.details.content.DetailsFragment
 
 /*

@@ -1,9 +1,6 @@
-package com.lyapov.marvelcomics.network
+package com.lyapov.marvelcomics.persistance.models.summary
 
-import com.lyapov.marvelcomics.network.models.ComicsRespone
-import io.reactivex.Single
-import retrofit2.http.GET
-import retrofit2.http.Query
+import androidx.room.Entity
 
 /*
  *  *  ****************************************************************
@@ -12,9 +9,8 @@ import retrofit2.http.Query
  *  *  *                  Copyright by Pixum, 04 2019                 *
  *  *  ****************************************************************
  */
-interface MarvelApiService {
-    @GET("v1/public/comics")
-    fun getComics(
-        @Query("format") format: String
-    ): Single<ComicsRespone>
-}
+@Entity(tableName = "SeriesSummaries")
+class SeriesSummary(
+    resourceURI: String?,
+    name: String?
+): BaseSummary(resourceURI, name)

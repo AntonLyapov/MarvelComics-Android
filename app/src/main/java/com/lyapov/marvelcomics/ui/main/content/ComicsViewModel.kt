@@ -3,11 +3,12 @@ package com.lyapov.marvelcomics.ui.main.content
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.lyapov.marvelcomics.models.Comic
+import com.lyapov.marvelcomics.persistance.models.Comic
 import com.lyapov.marvelcomics.repository.ComicsRepository
-import com.lyapov.marvelcomics.network.response.ComicsRespone
+import com.lyapov.marvelcomics.network.models.ComicsRespone
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.functions.Consumer
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
@@ -21,7 +22,6 @@ import javax.inject.Inject
  *  *  ****************************************************************
  */
 class ComicsViewModel @Inject constructor(
-    private val retrofit: Retrofit,
     private val comicsRepository: ComicsRepository
 ) : ViewModel() {
 
@@ -51,24 +51,42 @@ class ComicsViewModel @Inject constructor(
         loading.value = true
 
         disposable.add(
-            comicsRepository.getComics().subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribeWith(object :
-                    DisposableSingleObserver<ComicsRespone>() {
-                    override fun onSuccess(value: ComicsRespone) {
-                        comics.value = value.data?.results
+            comicsRepository.getComics()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableSingleObserver<ArrayList<Comic>>() {
+                    override fun onSuccess(t: ArrayList<Comic>) {
+                        comics.value = t
 
                         requestError.value = null
                         loading.value = false
                     }
 
                     override fun onError(e: Throwable) {
-                        comics.value = null
-
-                        requestError.value = e.localizedMessage
-                        loading.value = false
+                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                     }
+
                 })
         )
+
+//        disposable.add(
+//            comicsRepository.getComics().subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread()).subscribeWith(object :
+//                    DisposableSingleObserver<ComicsRespone>() {
+//                    override fun onSuccess(value: ComicsRespone) {
+//                        comics.value = value.data?.results
+//
+//                        requestError.value = null
+//                        loading.value = false
+//                    }
+//
+//                    override fun onError(e: Throwable) {
+//                        comics.value = null
+//
+//                        requestError.value = e.localizedMessage
+//                        loading.value = false
+//                    }
+//                })
+//        )
     }
 
     override fun onCleared() {

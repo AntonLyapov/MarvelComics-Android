@@ -1,9 +1,7 @@
-package com.lyapov.marvelcomics.network
+package com.lyapov.marvelcomics.persistance.models.base
 
-import com.lyapov.marvelcomics.network.models.ComicsRespone
-import io.reactivex.Single
-import retrofit2.http.GET
-import retrofit2.http.Query
+import android.os.Parcelable
+import androidx.room.PrimaryKey
 
 /*
  *  *  ****************************************************************
@@ -12,9 +10,12 @@ import retrofit2.http.Query
  *  *  *                  Copyright by Pixum, 04 2019                 *
  *  *  ****************************************************************
  */
-interface MarvelApiService {
-    @GET("v1/public/comics")
-    fun getComics(
-        @Query("format") format: String
-    ): Single<ComicsRespone>
+abstract class BaseParcelableModel: Parcelable {
+
+    @PrimaryKey(autoGenerate = true)
+    var localId: Int? = null
+
+    override fun describeContents(): Int {
+        return 0
+    }
 }
