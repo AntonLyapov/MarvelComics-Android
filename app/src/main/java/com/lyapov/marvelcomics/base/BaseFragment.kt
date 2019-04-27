@@ -1,4 +1,4 @@
-package com.lyapov.marvelcomics.ui.base
+package com.lyapov.marvelcomics.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +12,13 @@ import com.lyapov.marvelcomics.di.factory.ViewModelFactory
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
+/*
+ *  *  ****************************************************************
+ *  *  *                  Developed by Anton Lyapov                   *
+ *  *  *                       www.lyapov.com                         *
+ *  *  *                  Copyright by Pixum, 04 2019                 *
+ *  *  ****************************************************************
+ */
 abstract class BaseFragment<VM : ViewModel>: DaggerFragment() {
 
     protected val viewModel by lazy {

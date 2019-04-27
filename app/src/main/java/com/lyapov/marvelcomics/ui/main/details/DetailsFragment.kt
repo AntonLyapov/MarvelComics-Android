@@ -1,7 +1,7 @@
 package com.lyapov.marvelcomics.ui.main.details
 
 import com.lyapov.marvelcomics.R
-import com.lyapov.marvelcomics.ui.base.BaseFragment
+import com.lyapov.marvelcomics.base.BaseFragment
 
 class DetailsFragment: BaseFragment<DetailsViewModel>() {
 
@@ -10,6 +10,6 @@ class DetailsFragment: BaseFragment<DetailsViewModel>() {
     }
 
     override fun layoutResId(): Int {
-        return R.layout.activity_main
+        return R.layout.fragment_details
     }
 }

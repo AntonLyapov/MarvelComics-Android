@@ -1,6 +1,5 @@
 package com.lyapov.marvelcomics.network
 
-import com.lyapov.marvelcomics.models.Comic
 import com.lyapov.marvelcomics.network.response.ComicsRespone
 import io.reactivex.Single
 import javax.inject.Inject

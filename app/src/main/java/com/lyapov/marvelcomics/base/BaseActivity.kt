@@ -1,10 +1,8 @@
-package com.lyapov.marvelcomics.ui.main
+package com.lyapov.marvelcomics.base
 
 import android.os.Bundle
-import com.lyapov.marvelcomics.R
-import com.lyapov.marvelcomics.base.BaseActivity
-import com.lyapov.marvelcomics.ui.main.list.ComicsFragment
-
+import androidx.annotation.LayoutRes
+import dagger.android.support.DaggerAppCompatActivity
 
 /*
  *  *  ****************************************************************
@@ -13,19 +11,13 @@ import com.lyapov.marvelcomics.ui.main.list.ComicsFragment
  *  *  *                  Copyright by Pixum, 04 2019                 *
  *  *  ****************************************************************
  */
-class MainActivity : BaseActivity() {
+abstract class BaseActivity: DaggerAppCompatActivity() {
 
-    override fun layoutResId(): Int {
-        return R.layout.activity_main
-    }
+    @LayoutRes
+    abstract fun layoutResId(): Int
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .add(R.id.content, ComicsFragment())
-                .commit()
-        }
+        setContentView(layoutResId())
     }
 }

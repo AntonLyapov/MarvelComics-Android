@@ -7,13 +7,22 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.lyapov.marvelcomics.R
-import com.lyapov.marvelcomics.ui.base.BaseFragment
+import com.lyapov.marvelcomics.base.BaseFragment
+import com.lyapov.marvelcomics.base.recyclerview.BaseRecyclerAdapter
+import com.lyapov.marvelcomics.ui.main.details.DetailsFragment
+import com.lyapov.marvelcomics.ui.main.list.adapter.ComicsAdapter
 import kotlinx.android.synthetic.main.fragment_comics.*
 
+/*
+ *  *  ****************************************************************
+ *  *  *                  Developed by Anton Lyapov                   *
+ *  *  *                       www.lyapov.com                         *
+ *  *  *                  Copyright by Pixum, 04 2019                 *
+ *  *  ****************************************************************
+ */
+class ComicsFragment : BaseFragment<ComicsViewModel>(), BaseRecyclerAdapter.OnItemClickListener {
 
-class ComicsFragment : BaseFragment<ComicsViewModel>() {
-
-    private val adapter = ComicsAdapter()
+    private val adapter = ComicsAdapter(this)
 
     override fun getViewModelClass(): Class<ComicsViewModel> {
         return ComicsViewModel::class.java
@@ -35,10 +44,17 @@ class ComicsFragment : BaseFragment<ComicsViewModel>() {
         observableViewModel()
     }
 
+    override fun onItemClicked(position: Int) {
+        fragmentManager?.beginTransaction()
+            ?.replace(R.id.content, DetailsFragment())
+            ?.addToBackStack("asd")
+            ?.commit()
+    }
+
     private fun observableViewModel() {
         viewModel.getComics()
             .observe(this, Observer { comics ->
-                adapter.setData(comics)
+                adapter.clearAndAddAll(comics)
             })
 
         viewModel.getRequestError()

@@ -13,11 +13,17 @@ import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import javax.inject.Inject
 
-
+/*
+ *  *  ****************************************************************
+ *  *  *                  Developed by Anton Lyapov                   *
+ *  *  *                       www.lyapov.com                         *
+ *  *  *                  Copyright by Pixum, 04 2019                 *
+ *  *  ****************************************************************
+ */
 class ComicsViewModel @Inject constructor(
     private val retrofit: Retrofit,
     private val comicsRepository: ComicsRepository
-): ViewModel() {
+) : ViewModel() {
 
     private var disposable: CompositeDisposable = CompositeDisposable()
 
@@ -46,21 +52,22 @@ class ComicsViewModel @Inject constructor(
 
         disposable.add(
             comicsRepository.getComics().subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread()).subscribeWith(object : DisposableSingleObserver<ComicsRespone>() {
-                override fun onSuccess(value: ComicsRespone) {
-                    comics.value = value.data?.results
+                .observeOn(AndroidSchedulers.mainThread()).subscribeWith(object :
+                    DisposableSingleObserver<ComicsRespone>() {
+                    override fun onSuccess(value: ComicsRespone) {
+                        comics.value = value.data?.results
 
-                    requestError.value = null
-                    loading.value = false
-                }
+                        requestError.value = null
+                        loading.value = false
+                    }
 
-                override fun onError(e: Throwable) {
-                    comics.value = null
+                    override fun onError(e: Throwable) {
+                        comics.value = null
 
-                    requestError.value = e.localizedMessage
-                    loading.value = false
-                }
-            })
+                        requestError.value = e.localizedMessage
+                        loading.value = false
+                    }
+                })
         )
     }
 

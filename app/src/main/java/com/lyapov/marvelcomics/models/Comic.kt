@@ -1,16 +1,9 @@
 package com.lyapov.marvelcomics.models
 
-import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import com.lyapov.marvelcomics.models.list.CharacterList
-import com.lyapov.marvelcomics.models.list.CreatorList
-import com.lyapov.marvelcomics.models.list.EventList
-import com.lyapov.marvelcomics.models.list.StoryList
-import com.lyapov.marvelcomics.models.summary.ComicSummary
 import com.lyapov.marvelcomics.models.summary.SeriesSummary
 
 /*
@@ -72,9 +65,9 @@ class Comic: BaseDatabaseModel()
 //    @SerializedName("issueNumber")
 //    val issueNumber: Int? = null
 //
-//    @Expose
-//    @SerializedName("variantDescription")
-//    val variantDescription: String? = null
+    @Expose
+    @SerializedName("variantDescription")
+    var variantDescription: String? = null
 //
 //    @Expose
 //    @SerializedName("description")
