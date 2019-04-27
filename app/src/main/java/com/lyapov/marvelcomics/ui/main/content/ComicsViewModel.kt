@@ -1,10 +1,10 @@
-package com.lyapov.marvelcomics.ui.main.list
+package com.lyapov.marvelcomics.ui.main.content
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.lyapov.marvelcomics.models.Comic
-import com.lyapov.marvelcomics.network.ComicsRepository
+import com.lyapov.marvelcomics.repository.ComicsRepository
 import com.lyapov.marvelcomics.network.response.ComicsRespone
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -47,7 +47,7 @@ class ComicsViewModel @Inject constructor(
         return loading
     }
 
-    private fun fetchComics() {
+    fun fetchComics() {
         loading.value = true
 
         disposable.add(

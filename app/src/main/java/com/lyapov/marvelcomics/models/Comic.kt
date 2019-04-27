@@ -1,9 +1,17 @@
 package com.lyapov.marvelcomics.models
 
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.room.Embedded
 import androidx.room.Entity
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
+import com.lyapov.marvelcomics.models.base.BaseParcelableModel
+import com.lyapov.marvelcomics.models.list.CharacterList
+import com.lyapov.marvelcomics.models.list.CreatorList
+import com.lyapov.marvelcomics.models.list.EventList
+import com.lyapov.marvelcomics.models.list.StoryList
+import com.lyapov.marvelcomics.models.summary.ComicSummary
 import com.lyapov.marvelcomics.models.summary.SeriesSummary
 
 /*
@@ -14,156 +22,169 @@ import com.lyapov.marvelcomics.models.summary.SeriesSummary
  *  *  ****************************************************************
  */
 @Entity(tableName = "Comics")
-class Comic: BaseDatabaseModel()
-//    var id: Int?,
-//    var digitalId: Int?,
-//    var title: String?,
-//    var issueNumber: Int?,
-//    var variantDescription: String?,
-//    var description: String?,
-//    var modified: String?,
-//    var isbn: String?,
-//    var upc: String?,
-//    var diamondCode: String?,
-//    var ean: String?,
-//    var issn: String?,
-//    var format: String?,
-//    var pageCount: Int?,
-//    var textObjects: Array<TextObject>?,
-//    var resourceURI: String?,
-//    var urls: Array<Url>?,
-//    var series: SeriesSummary?,
-//    var variants: Array<ComicSummary>?,
-//    var collections: Array<ComicSummary>?,
-//    var collectedIssues: Array<ComicSummary>?,
-//    var dates: Array<ComicDate>?,
-//    var prices: Array<ComicPrice>?,
-//    var thumbnail: Image?,
-//    var images: Array<Image>?,
-//    var creators: CreatorList?,
-//    var characters: CharacterList?,
-//    var stories: StoryList?,
-//    var events: EventList?
-//)
-{
-//
-//    @Expose
-//    @SerializedName("id")
-//    @PrimaryKey
-//    @ColumnInfo(name = "id")
-//    val id: Int? = null
-//
-//    @Expose
-//    @SerializedName("digitalId")
-//    val digitalId: Int? = null
-//
-    @Expose
-    @SerializedName("title")
-    var title: String? = null
-//
-//    @Expose
-//    @SerializedName("issueNumber")
-//    val issueNumber: Int? = null
-//
-    @Expose
-    @SerializedName("variantDescription")
-    var variantDescription: String? = null
-//
-//    @Expose
-//    @SerializedName("description")
-//    val description: String? = null
-//
-//    @Expose
-//    @SerializedName("modified")
-//    val modified: String? = null
-//
-//    @Expose
-//    @SerializedName("isbn")
-//    val isbn: String? = null
-//
-//    @Expose
-//    @SerializedName("upc")
-//    val upc: String? = null
-//
-//    @Expose
-//    @SerializedName("diamondCode")
-//    val diamondCode: String? = null
-//
-//    @Expose
-//    @SerializedName("ean")
-//    val ean: String? = null
-//
-//    @Expose
-//    @SerializedName("issn")
-//    val issn: String? = null
-//
-//    @Expose
-//    @SerializedName("format")
-//    val format: String? = null
-//
-//    @Expose
-//    @SerializedName("pageCount")
-//    val pageCount: Int? = null
-//
-//    @Expose
-//    @SerializedName("textObjects")
-//    val textObjects: Array<TextObject>? = null
-//
-//    @Expose
-//    @SerializedName("resourceURI")
-//    val resourceURI: String? = null
-//
-//    @Expose
-//    @SerializedName("urls")
-//    val urls: Array<Url>? = null
-//
-    @Expose
-    @SerializedName("series")
+data class Comic(
+
+    @PrimaryKey
+    var id: Int? = null,
+
+    var digitalId: Int? = null,
+
+    var title: String? = null,
+
+    var issueNumber: Int? = null,
+
+    var variantDescription: String? = null,
+
+    var description: String? = null,
+
+    var modified: String? = null,
+
+    var isbn: String? = null,
+
+    var upc: String? = null,
+
+    var diamondCode: String? = null,
+
+    var ean: String? = null,
+
+    var issn: String? = null,
+
+    var format: String? = null,
+
+    var pageCount: Int? = null,
+
+    @Ignore
+    @Embedded(prefix = "textObjects")
+    val textObjects: Array<TextObject>? = null,
+
+    @Ignore
+    @Embedded(prefix = "resourceURI")
+    val resourceURI: String? = null,
+
+    @Ignore
+    @Embedded(prefix = "urls")
+    val urls: Array<Url>? = null,
+
+    @Ignore
     @Embedded(prefix = "series")
-    var series: SeriesSummary? = null
-//
-//    @Expose
-//    @SerializedName("variants")
-//    val variants: Array<ComicSummary>? = null
-//
-//    @Expose
-//    @SerializedName("collections")
-//    val collections: Array<ComicSummary>? = null
-//
-//    @Expose
-//    @SerializedName("collectedIssues")
-//    val collectedIssues: Array<ComicSummary>? = null
-//
-//    @Expose
-//    @SerializedName("dates")
-//    val dates: Array<ComicDate>? = null
-//
-//    @Expose
-//    @SerializedName("prices")
-//    val prices: Array<ComicPrice>? = null
-//
-    @Expose
-    @SerializedName("thumbnail")
+    var series: SeriesSummary? = null,
+
+    @Ignore
+    @Embedded(prefix = "variants")
+    val variants: Array<ComicSummary>? = null,
+
+    @Ignore
+    @Embedded(prefix = "collections")
+    val collections: Array<ComicSummary>? = null,
+
+    @Ignore
+    @Embedded(prefix = "collectedIssues")
+    val collectedIssues: Array<ComicSummary>? = null,
+
+    @Ignore
+    @Embedded(prefix = "dates")
+    val dates: Array<ComicDate>? = null,
+
+    @Ignore
+    @Embedded(prefix = "prices")
+    val prices: Array<ComicPrice>? = null,
+
+    @Ignore
     @Embedded(prefix = "thumbnail")
-    var thumbnail: Image? = null
-//
-//    @Expose
-//    @SerializedName("images")
-//    val images: Array<Image>? = null
-//
-//    @Expose
-//    @SerializedName("creators")
-//    val creators: CreatorList? = null
-//
-//    @Expose
-//    @SerializedName("characters")
-//    val characters: CharacterList? = null
-//
-//    @Expose
-//    @SerializedName("stories")
-//    val stories: StoryList? = null
-//
-//    @Expose
-//    @SerializedName("events")
-//    val events: EventList? = null
+    var thumbnail: Image? = null,
+
+    @Ignore
+    @Embedded(prefix = "images")
+    val images: Array<Image>? = null,
+
+    @Ignore
+    @Embedded(prefix = "creators")
+    val creators: CreatorList? = null,
+
+    @Ignore
+    @Embedded(prefix = "characters")
+    val characters: CharacterList? = null,
+
+    @Ignore
+    @Embedded(prefix = "stories")
+    val stories: StoryList? = null,
+
+    @Ignore
+    @Embedded(prefix = "events")
+    val events: EventList? = null
+) : BaseParcelableModel() {
+
+    constructor(parcel: Parcel) : this(
+        parcel.readInt(),
+        parcel.readInt(),
+        parcel.readString(),
+        parcel.readInt(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readInt(),
+        parcel.createTypedArray(TextObject.CREATOR),
+        parcel.readString(),
+        parcel.createTypedArray(Url.CREATOR) as? Array<Url>,
+        parcel.readParcelable(SeriesSummary::class.java.classLoader),
+        parcel.createTypedArray(ComicSummary.CREATOR) as? Array<ComicSummary>,
+        parcel.createTypedArray(ComicSummary.CREATOR) as? Array<ComicSummary>,
+        parcel.createTypedArray(ComicSummary.CREATOR) as? Array<ComicSummary>,
+        parcel.createTypedArray(ComicDate.CREATOR) as? Array<ComicDate>,
+        parcel.createTypedArray(ComicPrice.CREATOR) as? Array<ComicPrice>,
+        parcel.readParcelable(Image::class.java.classLoader),
+        parcel.createTypedArray(Image.CREATOR) as? Array<Image>,
+        parcel.readParcelable(CreatorList::class.java.classLoader),
+        parcel.readParcelable(CharacterList::class.java.classLoader),
+        parcel.readParcelable(StoryList::class.java.classLoader),
+        parcel.readParcelable(EventList::class.java.classLoader)
+    )
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(id ?: 0)
+        parcel.writeInt(digitalId ?: 0)
+        parcel.writeString(title)
+        parcel.writeInt(issueNumber ?: 0)
+        parcel.writeString(variantDescription)
+        parcel.writeString(description)
+        parcel.writeString(modified)
+        parcel.writeString(isbn)
+        parcel.writeString(upc)
+        parcel.writeString(diamondCode)
+        parcel.writeString(ean)
+        parcel.writeString(issn)
+        parcel.writeString(format)
+        parcel.writeInt(pageCount ?: 0)
+        parcel.writeParcelableArray(textObjects, flags)
+        parcel.writeString(resourceURI)
+        parcel.writeParcelableArray(urls, flags)
+        parcel.writeParcelable(series, flags)
+        parcel.writeParcelableArray(variants, flags)
+        parcel.writeParcelableArray(collections, flags)
+        parcel.writeParcelableArray(collectedIssues, flags)
+        parcel.writeParcelableArray(dates, flags)
+        parcel.writeParcelableArray(prices, flags)
+        parcel.writeParcelable(thumbnail, flags)
+        parcel.writeParcelableArray(images, flags)
+        parcel.writeParcelable(creators, flags)
+        parcel.writeParcelable(characters, flags)
+        parcel.writeParcelable(stories, flags)
+        parcel.writeParcelable(events, flags)
+    }
+
+    companion object CREATOR : Parcelable.Creator<Comic> {
+        override fun createFromParcel(parcel: Parcel): Comic {
+            return Comic(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Comic?> {
+            return arrayOfNulls(size)
+        }
+    }
 }

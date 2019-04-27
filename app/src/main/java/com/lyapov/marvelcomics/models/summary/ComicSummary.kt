@@ -1,8 +1,8 @@
 package com.lyapov.marvelcomics.models.summary
 
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.room.Entity
-import androidx.room.ForeignKey
-import com.lyapov.marvelcomics.models.Comic
 
 /*
  *  *  ****************************************************************
@@ -11,17 +11,24 @@ import com.lyapov.marvelcomics.models.Comic
  *  *  *                  Copyright by Pixum, 04 2019                 *
  *  *  ****************************************************************
  */
-@Entity(
-    tableName = "TextObjects", foreignKeys = [
-        ForeignKey(
-            entity = Comic::class,
-            parentColumns = ["id"],
-            childColumns = ["comicId"],
-            onDelete = ForeignKey.CASCADE
-        )
-    ]
-)
-class ComicSummary: BaseSummary() {
+@Entity(tableName = "ComicSummaries")
+class ComicSummary(
+    resourceURI: String?,
+    name: String?
+) : BaseSummary(resourceURI, name) {
 
-    val comicId: Int? = null
+    constructor(parcel: Parcel) : this(
+        parcel.readString(),
+        parcel.readString()
+    )
+
+    companion object CREATOR : Parcelable.Creator<ComicSummary> {
+        override fun createFromParcel(parcel: Parcel): ComicSummary {
+            return ComicSummary(parcel)
+        }
+
+        override fun newArray(size: Int): Array<ComicSummary?> {
+            return arrayOfNulls(size)
+        }
+    }
 }

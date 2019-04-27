@@ -1,10 +1,9 @@
 package com.lyapov.marvelcomics.models
 
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.ForeignKey.CASCADE
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
+import com.lyapov.marvelcomics.models.base.BaseParcelableModel
 
 /*
  *  *  ****************************************************************
@@ -13,29 +12,32 @@ import com.google.gson.annotations.SerializedName
  *  *  *                  Copyright by Pixum, 04 2019                 *
  *  *  ****************************************************************
  */
-@Entity(
-    tableName = "TextObjects", foreignKeys = [
-        ForeignKey(
-            entity = Comic::class,
-            parentColumns = ["id"],
-            childColumns = ["comicId"],
-            onDelete = CASCADE
-        )
-    ]
-)
-class TextObject {
-
-    @Expose
-    @SerializedName("type")
-    val type: String? = null
-
-    @Expose
-    @SerializedName("language")
-    val language: String? = null
-
-    @Expose
-    @SerializedName("text")
+@Entity(tableName = "TextObjects")
+data class TextObject(
+    val type: String? = null,
+    val language: String? = null,
     val text: String? = null
+) : BaseParcelableModel() {
 
-    val comicId: Int? = null
+    constructor(parcel: Parcel) : this(
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString()
+    )
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(type)
+        parcel.writeString(language)
+        parcel.writeString(text)
+    }
+
+    companion object CREATOR : Parcelable.Creator<TextObject> {
+        override fun createFromParcel(parcel: Parcel): TextObject {
+            return TextObject(parcel)
+        }
+
+        override fun newArray(size: Int): Array<TextObject?> {
+            return arrayOfNulls(size)
+        }
+    }
 }

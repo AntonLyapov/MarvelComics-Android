@@ -3,7 +3,7 @@ package com.lyapov.marvelcomics.ui.main
 import android.os.Bundle
 import com.lyapov.marvelcomics.R
 import com.lyapov.marvelcomics.base.BaseActivity
-import com.lyapov.marvelcomics.ui.main.list.ComicsFragment
+import com.lyapov.marvelcomics.ui.main.content.ComicsFragment
 
 
 /*

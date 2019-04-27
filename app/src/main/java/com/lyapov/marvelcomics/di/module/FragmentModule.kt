@@ -1,7 +1,7 @@
 package com.lyapov.marvelcomics.di.module
 
-import com.lyapov.marvelcomics.ui.main.details.DetailsFragment
-import com.lyapov.marvelcomics.ui.main.list.ComicsFragment
+import com.lyapov.marvelcomics.ui.details.content.DetailsFragment
+import com.lyapov.marvelcomics.ui.main.content.ComicsFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

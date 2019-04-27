@@ -1,6 +1,7 @@
-package com.lyapov.marvelcomics.models.summary
+package com.lyapov.marvelcomics.models.base
 
-import androidx.room.Entity
+import android.os.Parcelable
+import androidx.room.PrimaryKey
 
 /*
  *  *  ****************************************************************
@@ -9,8 +10,12 @@ import androidx.room.Entity
  *  *  *                  Copyright by Pixum, 04 2019                 *
  *  *  ****************************************************************
  */
-@Entity(tableName = "SeriesSummaries")
-class SeriesSummary(
-    resourceURI: String?,
-    name: String?
-): BaseSummary(resourceURI, name)
+abstract class BaseParcelableModel: Parcelable {
+
+    @PrimaryKey(autoGenerate = true)
+    var localId: Int? = null
+
+    override fun describeContents(): Int {
+        return 0
+    }
+}

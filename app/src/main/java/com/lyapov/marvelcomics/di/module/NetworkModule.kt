@@ -10,6 +10,9 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
+import com.google.gson.GsonBuilder
+import com.lyapov.marvelcomics.util.DateSerializer
+import java.util.*
 
 
 /*
@@ -31,21 +34,17 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        val gsonBuilder = GsonBuilder()
+        gsonBuilder
+            .registerTypeAdapter(Date::class.java, DateSerializer())
+
+        val gsonConverterFactory = GsonConverterFactory.create(gsonBuilder.create())
+
         val retrofitBuilder = Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(gsonConverterFactory)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .baseUrl(MARVEL_BASE_URL)
 
-//        val client = OkHttpClient.Builder()
-//
-//        if (BuildConfig.DEBUG) {
-//            val interceptor = HttpLoggingInterceptor()
-//            interceptor.level = HttpLoggingInterceptor.Level.BODY
-//
-//            client.addInterceptor(interceptor)
-//        }
-
-//        val okHttpClient = client.build()
         retrofitBuilder.client(okHttpClient)
 
         return retrofitBuilder.build()

@@ -1,8 +1,8 @@
 package com.lyapov.marvelcomics.models.summary
 
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
-import com.lyapov.marvelcomics.models.BaseDatabaseModel
+import android.os.Parcel
+import android.os.Parcelable
+import com.lyapov.marvelcomics.models.base.BaseParcelableModel
 
 /*
  *  *  ****************************************************************
@@ -11,13 +11,28 @@ import com.lyapov.marvelcomics.models.BaseDatabaseModel
  *  *  *                  Copyright by Pixum, 04 2019                 *
  *  *  ****************************************************************
  */
-open class BaseSummary: BaseDatabaseModel() {
-
-    @Expose
-    @SerializedName("resourceURI")
-    var resourceURI: String? = null
-
-    @Expose
-    @SerializedName("name")
+open class BaseSummary(
+    var resourceURI: String? = null,
     var name: String? = null
+) : BaseParcelableModel() {
+
+    constructor(parcel: Parcel) : this(
+        parcel.readString(),
+        parcel.readString()
+    )
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(resourceURI)
+        parcel.writeString(name)
+    }
+
+    companion object CREATOR : Parcelable.Creator<BaseSummary> {
+        override fun createFromParcel(parcel: Parcel): BaseSummary {
+            return BaseSummary(parcel)
+        }
+
+        override fun newArray(size: Int): Array<BaseSummary?> {
+            return arrayOfNulls(size)
+        }
+    }
 }

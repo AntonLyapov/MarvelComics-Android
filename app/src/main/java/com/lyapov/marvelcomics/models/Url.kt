@@ -1,9 +1,9 @@
 package com.lyapov.marvelcomics.models
 
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.room.Entity
-import androidx.room.ForeignKey
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
+import com.lyapov.marvelcomics.models.base.BaseParcelableModel
 
 /*
  *  *  ****************************************************************
@@ -12,25 +12,29 @@ import com.google.gson.annotations.SerializedName
  *  *  *                  Copyright by Pixum, 04 2019                 *
  *  *  ****************************************************************
  */
-@Entity(
-    tableName = "TextObjects", foreignKeys = [
-        ForeignKey(
-            entity = Comic::class,
-            parentColumns = ["id"],
-            childColumns = ["comicId"],
-            onDelete = ForeignKey.CASCADE
-        )
-    ]
-)
-class Url {
-
-    @Expose
-    @SerializedName("type")
-    val type: String? = null
-
-    @Expose
-    @SerializedName("url")
+@Entity(tableName = "Urls")
+data class Url(
+    val type: String? = null,
     val url: String? = null
+) : BaseParcelableModel() {
 
-    val comicId: Int? = null
+    constructor(parcel: Parcel) : this(
+        parcel.readString(),
+        parcel.readString()
+    )
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(type)
+        parcel.writeString(url)
+    }
+
+    companion object CREATOR : Parcelable.Creator<Url> {
+        override fun createFromParcel(parcel: Parcel): Url {
+            return Url(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Url?> {
+            return arrayOfNulls(size)
+        }
+    }
 }

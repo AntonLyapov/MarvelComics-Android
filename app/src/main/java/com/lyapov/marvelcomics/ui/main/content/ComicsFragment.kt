@@ -1,16 +1,17 @@
-package com.lyapov.marvelcomics.ui.main.list
+package com.lyapov.marvelcomics.ui.main.content
 
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
 import com.lyapov.marvelcomics.R
 import com.lyapov.marvelcomics.base.BaseFragment
 import com.lyapov.marvelcomics.base.recyclerview.BaseRecyclerAdapter
-import com.lyapov.marvelcomics.ui.main.details.DetailsFragment
-import com.lyapov.marvelcomics.ui.main.list.adapter.ComicsAdapter
+import com.lyapov.marvelcomics.ui.details.DetailsActivity
+import com.lyapov.marvelcomics.ui.main.content.adapter.ComicsAdapter
 import kotlinx.android.synthetic.main.fragment_comics.*
 
 /*
@@ -20,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_comics.*
  *  *  *                  Copyright by Pixum, 04 2019                 *
  *  *  ****************************************************************
  */
-class ComicsFragment : BaseFragment<ComicsViewModel>(), BaseRecyclerAdapter.OnItemClickListener {
+class ComicsFragment : BaseFragment<ComicsViewModel>(), BaseRecyclerAdapter.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private val adapter = ComicsAdapter(this)
 
@@ -35,6 +36,8 @@ class ComicsFragment : BaseFragment<ComicsViewModel>(), BaseRecyclerAdapter.OnIt
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        swipeRefreshLayout.setOnRefreshListener(this)
+
         val itemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
         recyclerView.addItemDecoration(itemDecoration)
 
@@ -44,11 +47,17 @@ class ComicsFragment : BaseFragment<ComicsViewModel>(), BaseRecyclerAdapter.OnIt
         observableViewModel()
     }
 
+    override fun onRefresh() {
+        viewModel.fetchComics()
+    }
+
     override fun onItemClicked(position: Int) {
-        fragmentManager?.beginTransaction()
-            ?.replace(R.id.content, DetailsFragment())
-            ?.addToBackStack("asd")
-            ?.commit()
+        val item = adapter.getItem(position)
+
+        context?.let {
+            val intent = DetailsActivity.getStartingIntent(it, item)
+            startActivity(intent)
+        }
     }
 
     private fun observableViewModel() {
@@ -67,7 +76,7 @@ class ComicsFragment : BaseFragment<ComicsViewModel>(), BaseRecyclerAdapter.OnIt
 
         viewModel.getLoading()
             .observe(this, Observer {
-                progressBar.visibility = if (it) View.VISIBLE else View.GONE
+                swipeRefreshLayout.isRefreshing = it
             })
     }
 }

@@ -1,7 +1,6 @@
-package com.lyapov.marvelcomics.network
+package com.lyapov.marvelcomics.ui.details.content
 
-import com.lyapov.marvelcomics.network.response.ComicsRespone
-import io.reactivex.Single
+import androidx.lifecycle.ViewModel
 import javax.inject.Inject
 
 /*
@@ -11,9 +10,5 @@ import javax.inject.Inject
  *  *  *                  Copyright by Pixum, 04 2019                 *
  *  *  ****************************************************************
  */
-class ComicsRepository @Inject constructor(private val api: MarvelApiService) {
-
-    fun getComics(): Single<ComicsRespone> {
-        return api.getComics("comic")
-    }
+class DetailsViewModel @Inject constructor(): ViewModel() {
 }

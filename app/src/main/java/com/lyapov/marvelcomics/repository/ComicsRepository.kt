@@ -1,9 +1,9 @@
-package com.lyapov.marvelcomics.di.module
+package com.lyapov.marvelcomics.repository
 
-import com.lyapov.marvelcomics.repository.ComicsRepository
 import com.lyapov.marvelcomics.network.MarvelApiService
-import dagger.Module
-import dagger.Provides
+import com.lyapov.marvelcomics.network.response.ComicsRespone
+import io.reactivex.Single
+import javax.inject.Inject
 
 /*
  *  *  ****************************************************************
@@ -12,15 +12,9 @@ import dagger.Provides
  *  *  *                  Copyright by Pixum, 04 2019                 *
  *  *  ****************************************************************
  */
-@Module(
-    includes = [
-        ViewModelModule::class,
-        NetworkModule::class
-    ]
-)
-class ApplicationModule {
+class ComicsRepository @Inject constructor(private val api: MarvelApiService, private val database: AppDatabase) {
 
-    @Provides
-    fun provideComicsRepository(api: MarvelApiService): ComicsRepository =
-        ComicsRepository(api)
+    fun getComics(): Single<ComicsRespone> {
+        return api.getComics("comic")
+    }
 }

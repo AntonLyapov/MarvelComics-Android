@@ -1,7 +1,9 @@
 package com.lyapov.marvelcomics.models.list
 
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
+import android.os.Parcel
+import android.os.Parcelable
+import com.lyapov.marvelcomics.models.base.BaseParcelableModel
+import com.lyapov.marvelcomics.models.summary.BaseRoleSummary
 
 /*
  *  *  ****************************************************************
@@ -10,21 +12,30 @@ import com.google.gson.annotations.SerializedName
  *  *  *                  Copyright by Pixum, 04 2019                 *
  *  *  ****************************************************************
  */
-open class BaseList<T> {
-
-    @Expose
-    @SerializedName("available")
-    val available: Int? = null
-
-    @Expose
-    @SerializedName("returned")
-    val returned: Int? = null
-
-    @Expose
-    @SerializedName("collectionURI")
+open class BaseList(
+    val available: Int? = null,
+    val returned: Int? = null,
     val collectionURI: String? = null
+) : BaseParcelableModel() {
+    constructor(parcel: Parcel) : this(
+        parcel.readInt(),
+        parcel.readInt(),
+        parcel.readString()
+    )
 
-    @Expose
-    @SerializedName("items")
-    val items: Array<T>? = null
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(available ?: 0)
+        parcel.writeInt(returned ?: 0)
+        parcel.writeString(collectionURI)
+    }
+
+    companion object CREATOR : Parcelable.Creator<BaseRoleSummary> {
+        override fun createFromParcel(parcel: Parcel): BaseRoleSummary {
+            return BaseRoleSummary(parcel)
+        }
+
+        override fun newArray(size: Int): Array<BaseRoleSummary?> {
+            return arrayOfNulls(size)
+        }
+    }
 }

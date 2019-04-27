@@ -1,4 +1,4 @@
-package com.lyapov.marvelcomics.ui.main.list.adapter
+package com.lyapov.marvelcomics.ui.main.content.adapter
 
 import android.view.ViewGroup
 import com.lyapov.marvelcomics.R
