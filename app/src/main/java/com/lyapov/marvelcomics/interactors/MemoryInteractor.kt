@@ -7,19 +7,23 @@ import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
 
 class MemoryInteractor @Inject constructor() {
-    private var observable: BehaviorSubject<ArrayList<Comic>> = BehaviorSubject.create<ArrayList<Comic>>()
-    private var comics: ArrayList<Comic>? = null
 
-    fun saveData(comics: ArrayList<Comic>) {
+    private val observable by lazy {
+        BehaviorSubject.create<List<Comic>>()
+    }
+
+    private var comics: List<Comic>? = null
+
+    fun saveData(comics: List<Comic>) {
         this.comics = comics
         observable.onNext(comics)
     }
 
-    fun getComics(): Maybe<ArrayList<Comic>> {
-        return if (comics == null) Maybe.empty<ArrayList<Comic>>() else Maybe.just<ArrayList<Comic>>(comics)
+    fun getComics(): Maybe<List<Comic>> {
+        return if (comics == null) Maybe.empty<List<Comic>>() else Maybe.just<List<Comic>>(comics)
     }
 
-    fun getComicsObservable(): Observable<ArrayList<Comic>> {
+    fun getComicsObservable(): Observable<List<Comic>> {
         return observable
     }
 }

@@ -28,24 +28,5 @@ abstract class AppDatabase : RoomDatabase() {
 
     companion object {
         const val VERSION = 1
-
-        private var INSTANCE: AppDatabase? = null
-
-        fun getInstance(context: Context): AppDatabase? {
-            if (INSTANCE == null) {
-                synchronized(AppDatabase::class) {
-                    INSTANCE = Room.databaseBuilder(
-                        context.applicationContext,
-                        AppDatabase::class.java, "MarvelComics.db"
-                    )
-                        .build()
-                }
-            }
-            return INSTANCE
-        }
-
-        fun destroyInstance() {
-            INSTANCE = null
-        }
     }
 }

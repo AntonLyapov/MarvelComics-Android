@@ -12,7 +12,9 @@ class DatabaseInteractor @Inject constructor(private val database: AppDatabase, 
         return database.comicDao().getAll()
             .subscribeOn(Schedulers.io())
             .doOnSuccess {
-                memoryInteractor.saveData(it)
+                if (it.isNotEmpty()) {
+                    memoryInteractor.saveData(it)
+                }
             }
     }
 

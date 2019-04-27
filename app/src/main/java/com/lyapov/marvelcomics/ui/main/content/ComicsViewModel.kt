@@ -27,15 +27,15 @@ class ComicsViewModel @Inject constructor(
 
     private var disposable: CompositeDisposable = CompositeDisposable()
 
-    private val comics = MutableLiveData<ArrayList<Comic>?>()
+    private val comics = MutableLiveData<List<Comic>?>()
     private val requestError = MutableLiveData<String?>()
     private val loading = MutableLiveData<Boolean>()
 
-    init {
-        fetchComics()
-    }
+//    init {
+//        fetchComics()
+//    }
 
-    fun getComics(): LiveData<ArrayList<Comic>?> {
+    fun getComics(): LiveData<List<Comic>?> {
         return comics
     }
 
@@ -53,18 +53,16 @@ class ComicsViewModel @Inject constructor(
         disposable.add(
             comicsRepository.getComics()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<ArrayList<Comic>>() {
-                    override fun onSuccess(t: ArrayList<Comic>) {
-                        comics.value = t
+                .subscribe({ c ->
+                    comics.value = c
 
-                        requestError.value = null
-                        loading.value = false
-                    }
+                    requestError.value = null
+                    loading.value = false
+                }, { e ->
+                    comics.value = null
 
-                    override fun onError(e: Throwable) {
-                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                    }
-
+                    requestError.value = e.localizedMessage
+                    loading.value = false
                 })
         )
 

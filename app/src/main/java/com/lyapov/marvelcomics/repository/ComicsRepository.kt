@@ -1,5 +1,6 @@
 package com.lyapov.marvelcomics.repository
 
+import android.util.Log
 import com.google.gson.JsonSyntaxException
 import com.lyapov.marvelcomics.interactors.DatabaseInteractor
 import com.lyapov.marvelcomics.interactors.MemoryInteractor
@@ -12,6 +13,7 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Consumer
+import io.reactivex.functions.Predicate
 import retrofit2.HttpException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
@@ -32,9 +34,7 @@ class ComicsRepository @Inject constructor(
 
     private var dataProviderDisposable: Disposable? = null
 
-    fun getComics(): Observable<ArrayList<Comic>> {
-        //return api.getComics("comic")
-
+    fun getComics(): Observable<List<Comic>> {
         val memoryObservable = memoryInteractor.getComics().toObservable()
         val databaseObservable = databaseInteractor.getComics().toObservable()
         val networkObservable = networkInteractor.getComics().toObservable()
@@ -42,12 +42,8 @@ class ComicsRepository @Inject constructor(
         if (!isNetworkInProgress()) {
             dataProviderDisposable =
                 Observable.concat<List<Comic>>(memoryObservable, databaseObservable, networkObservable)
-                    .firstElement()
-                    .subscribe({
-
-                    }, {
-                        handleNonHttpException(it)
-                    })
+                .firstElement()
+                .subscribe()
         }
 
         return memoryInteractor.getComicsObservable()
@@ -55,20 +51,5 @@ class ComicsRepository @Inject constructor(
 
     private fun isNetworkInProgress(): Boolean {
         return dataProviderDisposable != null && !(dataProviderDisposable?.isDisposed ?: false)
-    }
-
-    private fun handleNonHttpException(throwable: Throwable) {
-        // if not an HttpException throw further
-        if (throwable is HttpException) {
-
-        } else if (throwable is JsonSyntaxException) {
-
-        } else if (throwable is SocketTimeoutException) {
-
-        } else if (throwable is ConnectException) {
-
-        } else {
-            throw RuntimeException(throwable)
-        }
     }
 }

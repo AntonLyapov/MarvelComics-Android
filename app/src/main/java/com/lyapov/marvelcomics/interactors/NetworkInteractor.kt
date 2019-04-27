@@ -13,7 +13,9 @@ class NetworkInteractor @Inject constructor(
 
     fun getComics(): Single<ArrayList<Comic>?> {
         return apiService.getComics("comic")
-            .map { it.data?.results }
+            .map {
+                it.data?.results
+            }
             .doOnSuccess { comics ->
                 comics?.let {
                     databaseInteractor.saveData(it)
