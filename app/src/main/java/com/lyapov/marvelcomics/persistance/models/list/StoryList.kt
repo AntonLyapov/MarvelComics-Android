@@ -3,6 +3,9 @@ package com.lyapov.marvelcomics.persistance.models.list
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.Entity
+import androidx.room.TypeConverters
+import com.lyapov.marvelcomics.persistance.converters.BaseModelTypeConverter
+import com.lyapov.marvelcomics.persistance.converters.StorySummaryTypeConverter
 import com.lyapov.marvelcomics.persistance.models.summary.StorySummary
 
 /*
@@ -17,20 +20,20 @@ class StoryList(
     available: Int?,
     returned: Int?,
     collectionURI: String?,
-    val items: Array<StorySummary>? = null
+    var items: ArrayList<StorySummary>? = null
 ): BaseList(available, returned, collectionURI) {
 
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readInt(),
         parcel.readString(),
-        parcel.createTypedArray(StorySummary.CREATOR)
+        parcel.createTypedArrayList(StorySummary.CREATOR)
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         super.writeToParcel(parcel, flags)
 
-        parcel.writeParcelableArray(items, flags)
+        parcel.writeTypedList(items)
     }
 
     companion object CREATOR : Parcelable.Creator<StoryList> {

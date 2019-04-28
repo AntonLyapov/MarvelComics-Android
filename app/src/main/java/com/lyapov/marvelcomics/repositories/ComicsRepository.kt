@@ -1,22 +1,13 @@
-package com.lyapov.marvelcomics.repository
+package com.lyapov.marvelcomics.repositories
 
 import android.util.Log
-import com.google.gson.JsonSyntaxException
 import com.lyapov.marvelcomics.interactors.DatabaseInteractor
 import com.lyapov.marvelcomics.interactors.MemoryInteractor
 import com.lyapov.marvelcomics.interactors.NetworkInteractor
-import com.lyapov.marvelcomics.network.MarvelApiService
-import com.lyapov.marvelcomics.network.models.ComicsRespone
-import com.lyapov.marvelcomics.persistance.AppDatabase
 import com.lyapov.marvelcomics.persistance.models.Comic
 import io.reactivex.Observable
-import io.reactivex.Single
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Consumer
-import io.reactivex.functions.Predicate
-import retrofit2.HttpException
-import java.net.ConnectException
-import java.net.SocketTimeoutException
 import javax.inject.Inject
 
 /*
@@ -42,9 +33,22 @@ class ComicsRepository @Inject constructor(
         if (!isNetworkInProgress()) {
             dataProviderDisposable =
                 Observable.concat<List<Comic>>(memoryObservable, databaseObservable, networkObservable)
-                .firstElement()
-                .subscribe()
+                    .firstElement()
+                    .subscribe()
         }
+
+        return memoryInteractor.getComicsObservable()
+    }
+
+    fun getForceComics(): Observable<List<Comic>> {
+        if (isNetworkInProgress()) {
+            dataProviderDisposable?.dispose()
+        }
+
+        val networkObservable = networkInteractor.getComics().toObservable()
+
+        dataProviderDisposable = networkObservable
+            .subscribe()
 
         return memoryInteractor.getComicsObservable()
     }

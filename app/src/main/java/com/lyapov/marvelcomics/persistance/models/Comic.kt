@@ -6,7 +6,7 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import com.lyapov.marvelcomics.persistance.models.base.BaseParcelableModel
+import com.lyapov.marvelcomics.persistance.models.base.BaseDatabaseModel
 import com.lyapov.marvelcomics.persistance.models.list.CharacterList
 import com.lyapov.marvelcomics.persistance.models.list.CreatorList
 import com.lyapov.marvelcomics.persistance.models.list.EventList
@@ -57,15 +57,12 @@ data class Comic(
     @Embedded(prefix = "textObjects")
     val textObjects: Array<TextObject>? = null,
 
-    @Ignore
-    @Embedded(prefix = "resourceURI")
-    val resourceURI: String? = null,
+    var resourceURI: String? = null,
 
     @Ignore
     @Embedded(prefix = "urls")
     val urls: Array<Url>? = null,
 
-    @Ignore
     @Embedded(prefix = "series")
     var series: SeriesSummary? = null,
 
@@ -89,7 +86,6 @@ data class Comic(
     @Embedded(prefix = "prices")
     val prices: Array<ComicPrice>? = null,
 
-    @Ignore
     @Embedded(prefix = "thumbnail")
     var thumbnail: Image? = null,
 
@@ -97,22 +93,18 @@ data class Comic(
     @Embedded(prefix = "images")
     val images: Array<Image>? = null,
 
-    @Ignore
     @Embedded(prefix = "creators")
-    val creators: CreatorList? = null,
+    var creators: CreatorList? = null,
 
-    @Ignore
     @Embedded(prefix = "characters")
-    val characters: CharacterList? = null,
+    var characters: CharacterList? = null,
 
-    @Ignore
     @Embedded(prefix = "stories")
-    val stories: StoryList? = null,
+    var stories: StoryList? = null,
 
-    @Ignore
     @Embedded(prefix = "events")
-    val events: EventList? = null
-) : BaseParcelableModel() {
+    var events: EventList? = null
+) : BaseDatabaseModel() {
 
     constructor(parcel: Parcel) : this(
         parcel.readInt(),

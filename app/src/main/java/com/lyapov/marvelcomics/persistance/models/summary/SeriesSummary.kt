@@ -1,5 +1,7 @@
 package com.lyapov.marvelcomics.persistance.models.summary
 
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.room.Entity
 
 /*

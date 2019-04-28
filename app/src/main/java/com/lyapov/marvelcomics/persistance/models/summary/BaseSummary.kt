@@ -2,7 +2,7 @@ package com.lyapov.marvelcomics.persistance.models.summary
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.lyapov.marvelcomics.persistance.models.base.BaseParcelableModel
+import com.lyapov.marvelcomics.persistance.models.base.BaseDatabaseModel
 
 /*
  *  *  ****************************************************************
@@ -14,7 +14,7 @@ import com.lyapov.marvelcomics.persistance.models.base.BaseParcelableModel
 open class BaseSummary(
     var resourceURI: String? = null,
     var name: String? = null
-) : BaseParcelableModel() {
+) : BaseDatabaseModel() {
 
     constructor(parcel: Parcel) : this(
         parcel.readString(),

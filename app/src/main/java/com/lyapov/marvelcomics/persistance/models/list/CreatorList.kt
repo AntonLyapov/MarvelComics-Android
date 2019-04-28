@@ -3,6 +3,8 @@ package com.lyapov.marvelcomics.persistance.models.list
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.Entity
+import androidx.room.TypeConverters
+import com.lyapov.marvelcomics.persistance.converters.CreatorSummaryTypeConverter
 import com.lyapov.marvelcomics.persistance.models.summary.CreatorSummary
 
 /*
@@ -17,20 +19,20 @@ class CreatorList(
     available: Int?,
     returned: Int?,
     collectionURI: String?,
-    val items: Array<CreatorSummary>? = null
+    var items: ArrayList<CreatorSummary>? = null
 ): BaseList(available, returned, collectionURI) {
 
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readInt(),
         parcel.readString(),
-        parcel.createTypedArray(CreatorSummary.CREATOR)
+        parcel.createTypedArrayList(CreatorSummary.CREATOR)
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         super.writeToParcel(parcel, flags)
 
-        parcel.writeParcelableArray(items, flags)
+        parcel.writeTypedList(items)
     }
 
     companion object CREATOR : Parcelable.Creator<CreatorList> {

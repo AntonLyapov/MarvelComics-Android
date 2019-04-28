@@ -3,7 +3,7 @@ package com.lyapov.marvelcomics.persistance.models
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.Entity
-import com.lyapov.marvelcomics.persistance.models.base.BaseParcelableModel
+import com.lyapov.marvelcomics.persistance.models.base.BaseDatabaseModel
 
 /*
  *  *  ****************************************************************
@@ -17,7 +17,7 @@ data class TextObject(
     val type: String? = null,
     val language: String? = null,
     val text: String? = null
-) : BaseParcelableModel() {
+) : BaseDatabaseModel() {
 
     constructor(parcel: Parcel) : this(
         parcel.readString(),

@@ -3,7 +3,7 @@ package com.lyapov.marvelcomics.persistance.models
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.Entity
-import com.lyapov.marvelcomics.persistance.models.base.BaseParcelableModel
+import com.lyapov.marvelcomics.persistance.models.base.BaseDatabaseModel
 import java.util.*
 
 /*
@@ -17,7 +17,7 @@ import java.util.*
 class ComicDate(
     val type: String? = null,
     val date: Date? = null
-) : BaseParcelableModel() {
+) : BaseDatabaseModel() {
 
     constructor(parcel: Parcel) : this(
         parcel.readString(),

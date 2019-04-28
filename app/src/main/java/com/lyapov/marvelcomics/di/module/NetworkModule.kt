@@ -1,7 +1,9 @@
 package com.lyapov.marvelcomics.di.module
 
+import com.google.gson.GsonBuilder
 import com.lyapov.marvelcomics.network.MarvelApiService
 import com.lyapov.marvelcomics.network.interceptors.MarvelAuthInterceptor
+import com.lyapov.marvelcomics.network.serializers.DateSerializer
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -9,10 +11,8 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
-import com.google.gson.GsonBuilder
-import com.lyapov.marvelcomics.util.DateSerializer
 import java.util.*
+import javax.inject.Singleton
 
 
 /*

@@ -2,7 +2,7 @@ package com.lyapov.marvelcomics.persistance.models.list
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.lyapov.marvelcomics.persistance.models.base.BaseParcelableModel
+import com.lyapov.marvelcomics.persistance.models.base.BaseDatabaseModel
 import com.lyapov.marvelcomics.persistance.models.summary.BaseRoleSummary
 
 /*
@@ -16,7 +16,7 @@ open class BaseList(
     val available: Int? = null,
     val returned: Int? = null,
     val collectionURI: String? = null
-) : BaseParcelableModel() {
+) : BaseDatabaseModel() {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readInt(),

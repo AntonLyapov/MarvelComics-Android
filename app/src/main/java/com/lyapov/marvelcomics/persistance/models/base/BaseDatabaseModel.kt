@@ -10,7 +10,7 @@ import androidx.room.PrimaryKey
  *  *  *                  Copyright by Pixum, 04 2019                 *
  *  *  ****************************************************************
  */
-abstract class BaseParcelableModel: Parcelable {
+abstract class BaseDatabaseModel : Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     var localId: Int? = null

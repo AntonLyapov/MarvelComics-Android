@@ -1,8 +1,11 @@
 package com.lyapov.marvelcomics.interactors
 
+import android.util.Log
 import com.lyapov.marvelcomics.network.MarvelApiService
 import com.lyapov.marvelcomics.persistance.models.Comic
 import io.reactivex.Single
+import io.reactivex.functions.Consumer
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class NetworkInteractor @Inject constructor(
@@ -13,6 +16,7 @@ class NetworkInteractor @Inject constructor(
 
     fun getComics(): Single<ArrayList<Comic>?> {
         return apiService.getComics("comic")
+            .subscribeOn(Schedulers.io())
             .map {
                 it.data?.results
             }
@@ -25,6 +29,9 @@ class NetworkInteractor @Inject constructor(
                 comics?.let {
                     memoryInteractor.saveData(it)
                 }
+            }
+            .doOnError { ex ->
+                Log.e("", "")
             }
     }
 }

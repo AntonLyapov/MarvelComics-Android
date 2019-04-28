@@ -4,14 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.lyapov.marvelcomics.persistance.models.Comic
-import com.lyapov.marvelcomics.repository.ComicsRepository
-import com.lyapov.marvelcomics.network.models.ComicsRespone
+import com.lyapov.marvelcomics.repositories.ComicsRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.Consumer
-import io.reactivex.observers.DisposableSingleObserver
-import io.reactivex.schedulers.Schedulers
-import retrofit2.Retrofit
 import javax.inject.Inject
 
 /*
@@ -21,9 +16,7 @@ import javax.inject.Inject
  *  *  *                  Copyright by Pixum, 04 2019                 *
  *  *  ****************************************************************
  */
-class ComicsViewModel @Inject constructor(
-    private val comicsRepository: ComicsRepository
-) : ViewModel() {
+class ComicsViewModel @Inject constructor(private val comicsRepository: ComicsRepository) : ViewModel() {
 
     private var disposable: CompositeDisposable = CompositeDisposable()
 
@@ -31,9 +24,15 @@ class ComicsViewModel @Inject constructor(
     private val requestError = MutableLiveData<String?>()
     private val loading = MutableLiveData<Boolean>()
 
-//    init {
-//        fetchComics()
-//    }
+    init {
+        fetchComics()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+
+        disposable.clear()
+    }
 
     fun getComics(): LiveData<List<Comic>?> {
         return comics
@@ -54,42 +53,34 @@ class ComicsViewModel @Inject constructor(
             comicsRepository.getComics()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ c ->
-                    comics.value = c
-
-                    requestError.value = null
-                    loading.value = false
-                }, { e ->
-                    comics.value = null
-
-                    requestError.value = e.localizedMessage
-                    loading.value = false
+                    onComicsReceivedSuccessfully(c)
+                }, { t ->
+                    onComicsReceivedWithError(t)
                 })
         )
-
-//        disposable.add(
-//            comicsRepository.getComics().subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread()).subscribeWith(object :
-//                    DisposableSingleObserver<ComicsRespone>() {
-//                    override fun onSuccess(value: ComicsRespone) {
-//                        comics.value = value.data?.results
-//
-//                        requestError.value = null
-//                        loading.value = false
-//                    }
-//
-//                    override fun onError(e: Throwable) {
-//                        comics.value = null
-//
-//                        requestError.value = e.localizedMessage
-//                        loading.value = false
-//                    }
-//                })
-//        )
     }
 
-    override fun onCleared() {
-        super.onCleared()
+    fun forceFetchComics() {
+        loading.value = true
 
-        disposable.clear()
+        disposable.add(
+            comicsRepository.getForceComics()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe()
+        )
+    }
+
+    private fun onComicsReceivedSuccessfully(c: List<Comic>) {
+        comics.value = c
+
+        requestError.value = null
+        loading.value = false
+    }
+
+    private fun onComicsReceivedWithError(t: Throwable) {
+        comics.value = null
+
+        requestError.value = t.localizedMessage
+        loading.value = false
     }
 }

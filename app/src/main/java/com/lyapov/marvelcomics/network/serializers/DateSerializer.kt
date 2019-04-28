@@ -1,4 +1,4 @@
-package com.lyapov.marvelcomics.util
+package com.lyapov.marvelcomics.network.serializers
 
 import com.google.gson.*
 import java.lang.reflect.Type

@@ -48,7 +48,7 @@ class ComicsFragment : BaseFragment<ComicsViewModel>(), BaseRecyclerAdapter.OnIt
     }
 
     override fun onRefresh() {
-        viewModel.fetchComics()
+        viewModel.forceFetchComics()
     }
 
     override fun onItemClicked(position: Int) {
