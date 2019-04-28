@@ -66,7 +66,11 @@ class ComicsViewModel @Inject constructor(private val comicsRepository: ComicsRe
         disposable.add(
             comicsRepository.getForceComics()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe()
+                .subscribe({ c ->
+
+                }, { t ->
+                    onComicsReceivedWithError(t)
+                })
         )
     }
 

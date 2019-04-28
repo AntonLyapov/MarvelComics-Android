@@ -1,13 +1,16 @@
 package com.lyapov.marvelcomics.repositories
 
-import android.util.Log
+import com.google.gson.JsonSyntaxException
 import com.lyapov.marvelcomics.interactors.DatabaseInteractor
 import com.lyapov.marvelcomics.interactors.MemoryInteractor
 import com.lyapov.marvelcomics.interactors.NetworkInteractor
 import com.lyapov.marvelcomics.persistance.models.Comic
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
-import io.reactivex.functions.Consumer
+import retrofit2.HttpException
+import java.net.ConnectException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 /*
@@ -34,7 +37,11 @@ class ComicsRepository @Inject constructor(
             dataProviderDisposable =
                 Observable.concat<List<Comic>>(memoryObservable, databaseObservable, networkObservable)
                     .firstElement()
-                    .subscribe()
+                    .subscribe({
+
+                    }, { t ->
+                        handleNonHttpException(t)
+                    })
         }
 
         return memoryInteractor.getComicsObservable()
@@ -48,12 +55,41 @@ class ComicsRepository @Inject constructor(
         val networkObservable = networkInteractor.getComics().toObservable()
 
         dataProviderDisposable = networkObservable
-            .subscribe()
+            .subscribe({
+
+            }, { t ->
+                handleNonHttpException(t)
+            })
 
         return memoryInteractor.getComicsObservable()
     }
 
     private fun isNetworkInProgress(): Boolean {
         return dataProviderDisposable != null && !(dataProviderDisposable?.isDisposed ?: false)
+    }
+
+    /**
+     * If Throwable is not an http exception throw runtime exception
+     */
+    private fun handleNonHttpException(throwable: Throwable) {
+        // if not an HttpException throw further
+        when (throwable) {
+            is HttpException -> {
+
+            }
+            is JsonSyntaxException -> {
+
+            }
+            is SocketTimeoutException -> {
+
+            }
+            is ConnectException -> {
+
+            }
+            is UnknownHostException -> {
+
+            }
+            else -> throw RuntimeException(throwable)
+        }
     }
 }

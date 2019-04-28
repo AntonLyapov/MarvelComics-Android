@@ -1,3 +1,10 @@
 <resources>
+    <!-- General -->
     <string name="app_name">MarvelComics</string>
+
+    <!-- Comics fragment-->
+    <string name="fragment_comics_error_placeholder">Something went wrong. Please try again…</string>
+
+    <!-- Details fragment -->
+    <string name="fragment_details_published">Published: %s</string>
 </resources>

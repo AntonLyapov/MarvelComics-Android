@@ -1,10 +1,8 @@
 package com.lyapov.marvelcomics.interactors
 
-import android.util.Log
 import com.lyapov.marvelcomics.network.MarvelApiService
 import com.lyapov.marvelcomics.persistance.models.Comic
 import io.reactivex.Single
-import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -30,8 +28,8 @@ class NetworkInteractor @Inject constructor(
                     memoryInteractor.saveData(it)
                 }
             }
-            .doOnError { ex ->
-                Log.e("", "")
+            .doOnError { t ->
+                memoryInteractor.onErrorReceived(t)
             }
     }
 }

@@ -15,4 +15,20 @@ import androidx.room.Entity
 class SeriesSummary(
     resourceURI: String?,
     name: String?
-): BaseSummary(resourceURI, name)
+): BaseSummary(resourceURI, name) {
+
+    constructor(parcel: Parcel) : this(
+        parcel.readString(),
+        parcel.readString()
+    )
+
+    companion object CREATOR : Parcelable.Creator<SeriesSummary> {
+        override fun createFromParcel(parcel: Parcel): SeriesSummary {
+            return SeriesSummary(parcel)
+        }
+
+        override fun newArray(size: Int): Array<SeriesSummary?> {
+            return arrayOfNulls(size)
+        }
+    }
+}

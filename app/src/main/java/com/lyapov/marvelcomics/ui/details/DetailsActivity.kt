@@ -17,7 +17,7 @@ import com.lyapov.marvelcomics.ui.details.content.DetailsFragment
  */
 class DetailsActivity: BaseActivity() {
 
-    lateinit var comic: Comic
+    private var comic: Comic? = null
 
     override fun layoutResId(): Int {
         return R.layout.activity_main
@@ -29,13 +29,38 @@ class DetailsActivity: BaseActivity() {
         if (savedInstanceState == null) {
             comic = intent.getParcelableExtra(EXTRA_COMIC)
 
+            if (comic == null) {
+                throw RuntimeException("Missing comic data in intent extras!")
+            }
+
             supportFragmentManager.beginTransaction()
-                .add(R.id.content, DetailsFragment())
+                .add(R.id.content, DetailsFragment.createFragment(comic!!))
                 .commit()
+
+            displayComicInfo()
         }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = comic.title
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+
+        outState?.putParcelable(EXTRA_COMIC, comic)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        if (savedInstanceState?.containsKey(EXTRA_COMIC) == true) {
+            comic = savedInstanceState.getParcelable(EXTRA_COMIC)!!
+
+            displayComicInfo()
+        }
+    }
+
+    private fun displayComicInfo() {
+        supportActionBar?.title = comic?.title
     }
 
     companion object {

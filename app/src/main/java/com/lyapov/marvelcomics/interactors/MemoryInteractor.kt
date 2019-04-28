@@ -19,6 +19,11 @@ class MemoryInteractor @Inject constructor() {
         observable.onNext(comics)
     }
 
+    fun onErrorReceived(t: Throwable) {
+        this.comics = null
+        observable.onError(t)
+    }
+
     fun getComics(): Maybe<List<Comic>> {
         return if (comics == null) Maybe.empty<List<Comic>>() else Maybe.just<List<Comic>>(comics)
     }

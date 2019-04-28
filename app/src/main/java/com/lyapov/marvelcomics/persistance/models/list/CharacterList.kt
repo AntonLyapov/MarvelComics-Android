@@ -3,9 +3,6 @@ package com.lyapov.marvelcomics.persistance.models.list
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.Entity
-import androidx.room.TypeConverters
-import com.lyapov.marvelcomics.persistance.converters.BaseModelTypeConverter
-import com.lyapov.marvelcomics.persistance.converters.CharacterSummaryTypeConverter
 import com.lyapov.marvelcomics.persistance.models.summary.CharacterSummary
 
 /*

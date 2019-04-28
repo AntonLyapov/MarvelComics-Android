@@ -1,5 +1,6 @@
 package com.lyapov.marvelcomics.di.module
 
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.lyapov.marvelcomics.network.MarvelApiService
 import com.lyapov.marvelcomics.network.interceptors.MarvelAuthInterceptor
@@ -33,12 +34,8 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
-        val gsonBuilder = GsonBuilder()
-        gsonBuilder
-            .registerTypeAdapter(Date::class.java, DateSerializer())
-
-        val gsonConverterFactory = GsonConverterFactory.create(gsonBuilder.create())
+    fun provideRetrofit(gson: Gson, okHttpClient: OkHttpClient): Retrofit {
+        val gsonConverterFactory = GsonConverterFactory.create(gson)
 
         val retrofitBuilder = Retrofit.Builder()
             .addConverterFactory(gsonConverterFactory)
@@ -54,6 +51,16 @@ class NetworkModule {
     @Provides
     fun provideMarvelApi(retrofit: Retrofit): MarvelApiService {
         return retrofit.create(MarvelApiService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGson(): Gson {
+        val gsonBuilder = GsonBuilder()
+        gsonBuilder
+            .registerTypeAdapter(Date::class.java, DateSerializer())
+
+        return gsonBuilder.create()
     }
 
     @Provides

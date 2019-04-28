@@ -20,4 +20,9 @@ abstract class BaseActivity: DaggerAppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(layoutResId())
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
 }
