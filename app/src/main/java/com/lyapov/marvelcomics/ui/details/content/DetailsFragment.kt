@@ -36,15 +36,25 @@ class DetailsFragment: BaseFragment<DetailsViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Set ImageView height to 1/2 of screen
+        thumbImageView.layoutParams.height = resources.displayMetrics.heightPixels / 2
+
         val thumb = comic?.thumbnail
 
         Glide.with(view.context)
             .load("${thumb?.path}.${thumb?.extension}")
             .placeholder(R.drawable.ic_launcher_background)
+            .centerCrop()
             .into(thumbImageView)
 
         titleTextView.text = comic?.title
-        publishedTextVIew.text = comic?.modified
+
+        val printPrice = comic?.prices?.first {
+            it.type.equals("printPrice")
+        }
+
+        val price = printPrice?.price?.toString() ?: "-"
+        priceTextVIew.text = context?.getString(R.string.fragment_details_price, price)
 
         val creators = comic?.creators?.items
         if (creators?.isNotEmpty() == true) {

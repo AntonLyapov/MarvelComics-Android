@@ -5,4 +5,8 @@
     <dimen name="item_comic_card_margin_horizontal">12dp</dimen>
     <dimen name="item_comic_card_height">100dp</dimen>
     <dimen name="item_comic_card_image_size">@dimen/item_comic_card_height</dimen>
+
+    <!-- Comic details-->
+    <dimen name="fragment_details_title_text_size">24sp</dimen>
+    <dimen name="fragment_details_title_padding">20dp</dimen>
 </resources>

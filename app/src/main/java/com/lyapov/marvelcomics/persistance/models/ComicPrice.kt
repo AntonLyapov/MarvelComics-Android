@@ -15,17 +15,17 @@ import com.lyapov.marvelcomics.persistance.models.base.BaseDatabaseModel
 @Entity(tableName = "ComicPrices")
 data class ComicPrice(
     val type: String? = null,
-    val price: Float? = null
+    val price: Double? = null
 ) : BaseDatabaseModel() {
 
     constructor(parcel: Parcel) : this(
         parcel.readString(),
-        parcel.readFloat()
+        parcel.readDouble()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(type)
-        parcel.writeFloat(price ?: 0f)
+        parcel.writeDouble(price ?: 0.0)
     }
 
     companion object CREATOR : Parcelable.Creator<ComicPrice> {

@@ -8,5 +8,5 @@
     <!-- Details fragment -->
     <string name="fragment_details_creators">Creators</string>
     <string name="fragment_details_description">Description</string>
-    <string name="fragment_details_published">Published: %s</string>
+    <string name="fragment_details_price">Price: %s</string>
 </resources>
