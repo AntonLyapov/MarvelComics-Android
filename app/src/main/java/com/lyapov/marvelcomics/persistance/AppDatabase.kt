@@ -3,10 +3,7 @@ package com.lyapov.marvelcomics.persistance
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.lyapov.marvelcomics.persistance.converters.CharacterSummaryTypeConverter
-import com.lyapov.marvelcomics.persistance.converters.CreatorSummaryTypeConverter
-import com.lyapov.marvelcomics.persistance.converters.EventSummaryTypeConverter
-import com.lyapov.marvelcomics.persistance.converters.StorySummaryTypeConverter
+import com.lyapov.marvelcomics.persistance.converters.*
 import com.lyapov.marvelcomics.persistance.models.Comic
 import com.lyapov.marvelcomics.persistance.models.ComicDao
 
@@ -25,10 +22,16 @@ import com.lyapov.marvelcomics.persistance.models.ComicDao
     exportSchema = false
 )
 @TypeConverters(
-    CharacterSummaryTypeConverter::class,
-    CreatorSummaryTypeConverter::class,
-    EventSummaryTypeConverter::class,
-    StorySummaryTypeConverter::class
+    CharacterSummariesTypeConverter::class,
+    CreatorSummariesTypeConverter::class,
+    EventSummariesTypeConverter::class,
+    StorySummariesTypeConverter::class,
+    ComicSummariesTypeConverter::class,
+    ComicPricesTypeConverter::class,
+    TextObjectsTypeConverter::class,
+    ComicDatesTypeConverter::class,
+    ImagesTypeConverter::class,
+    UrlsTypeConverter::class
 )
 abstract class AppDatabase : RoomDatabase() {
 

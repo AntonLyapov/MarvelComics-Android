@@ -46,10 +46,21 @@ class DetailsFragment: BaseFragment<DetailsViewModel>() {
         titleTextView.text = comic?.title
         publishedTextVIew.text = comic?.modified
 
-        listDetailsView.setData()
-        listDetailsView.setData()
-        listDetailsView.setData()
-        listDetailsView.setData()
+        val creators = comic?.creators?.items
+        if (creators?.isNotEmpty() == true) {
+            creatorsDetailsView.setCaption(context?.getString(R.string.fragment_details_creators))
+            creators.forEach { item ->
+                creatorsDetailsView.setValue("• ${item.role}: ${item.name}")
+            }
+        }
+
+        val textObjects = comic?.textObjects
+        if (textObjects?.isNotEmpty() == true) {
+            textsDetailsView.setCaption(context?.getString(R.string.fragment_details_description))
+            comic?.textObjects?.forEach { item ->
+                textsDetailsView.setValue("${item.text}")
+            }
+        }
     }
 
     companion object {

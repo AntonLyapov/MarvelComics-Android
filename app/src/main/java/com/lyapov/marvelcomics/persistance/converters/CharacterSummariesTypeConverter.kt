@@ -3,7 +3,7 @@ package com.lyapov.marvelcomics.persistance.converters
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.lyapov.marvelcomics.persistance.models.summary.CreatorSummary
+import com.lyapov.marvelcomics.persistance.models.summary.CharacterSummary
 
 /*
  *  *  ****************************************************************
@@ -12,24 +12,24 @@ import com.lyapov.marvelcomics.persistance.models.summary.CreatorSummary
  *  *  *                  Copyright by Pixum, 04 2019                 *
  *  *  ****************************************************************
  */
-class CreatorSummaryTypeConverter {
+class CharacterSummariesTypeConverter {
     @TypeConverter
-    fun stringToArrayList(value: String?): ArrayList<CreatorSummary>? {
+    fun stringToArrayList(value: String?): ArrayList<CharacterSummary>? {
         if (value == null) {
             return null
         }
 
-        val type = object : TypeToken<ArrayList<CreatorSummary>>() {}.type
+        val type = object : TypeToken<ArrayList<CharacterSummary>>() {}.type
         return Gson().fromJson(value, type)
     }
 
     @TypeConverter
-    fun arrayListToString(value: ArrayList<CreatorSummary>?): String? {
+    fun arrayListToString(value: ArrayList<CharacterSummary>?): String? {
         if (value == null) {
             return null
         }
 
-        val type = object : TypeToken<ArrayList<CreatorSummary>>() {}.type
+        val type = object : TypeToken<ArrayList<CharacterSummary>>() {}.type
         return Gson().toJson(value, type)
     }
 }

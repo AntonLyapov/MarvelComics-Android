@@ -47,7 +47,7 @@ class ComicsRepository @Inject constructor(
         return memoryInteractor.getComicsObservable()
     }
 
-    fun getForceComics(): Observable<List<Comic>> {
+    fun getForceComics() {
         if (isNetworkInProgress()) {
             dataProviderDisposable?.dispose()
         }
@@ -60,8 +60,6 @@ class ComicsRepository @Inject constructor(
             }, { t ->
                 handleNonHttpException(t)
             })
-
-        return memoryInteractor.getComicsObservable()
     }
 
     private fun isNetworkInProgress(): Boolean {

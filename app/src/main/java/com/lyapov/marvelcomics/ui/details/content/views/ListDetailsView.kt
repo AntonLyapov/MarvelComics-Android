@@ -1,6 +1,7 @@
 package com.lyapov.marvelcomics.ui.details.content.views
 
 import android.content.Context
+import android.graphics.Typeface
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import androidx.appcompat.widget.AppCompatTextView
@@ -23,9 +24,16 @@ class ListDetailsView: LinearLayout {
         orientation = VERTICAL
     }
 
-    fun setData() {
+    fun setCaption(caption: String?) {
         val textView = AppCompatTextView(context)
-        textView.text = "asidjasjid"
+        textView.typeface = Typeface.DEFAULT_BOLD
+        textView.text = caption
+        addView(textView)
+    }
+
+    fun setValue(value: String?) {
+        val textView = AppCompatTextView(context)
+        textView.text = value
         addView(textView)
     }
 }

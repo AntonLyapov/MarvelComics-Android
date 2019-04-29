@@ -63,15 +63,7 @@ class ComicsViewModel @Inject constructor(private val comicsRepository: ComicsRe
     fun forceFetchComics() {
         loading.value = true
 
-        disposable.add(
-            comicsRepository.getForceComics()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ c ->
-
-                }, { t ->
-                    onComicsReceivedWithError(t)
-                })
-        )
+        comicsRepository.getForceComics()
     }
 
     private fun onComicsReceivedSuccessfully(c: List<Comic>) {

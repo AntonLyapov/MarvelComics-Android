@@ -53,45 +53,37 @@ data class Comic(
 
     var pageCount: Int? = null,
 
-    @Ignore
     @Embedded(prefix = "textObjects")
-    val textObjects: Array<TextObject>? = null,
+    val textObjects: ArrayList<TextObject>? = null,
 
     var resourceURI: String? = null,
 
-    @Ignore
     @Embedded(prefix = "urls")
-    val urls: Array<Url>? = null,
+    val urls: ArrayList<Url>? = null,
 
     @Embedded(prefix = "series")
     var series: SeriesSummary? = null,
 
-    @Ignore
     @Embedded(prefix = "variants")
-    val variants: Array<ComicSummary>? = null,
+    val variants: ArrayList<ComicSummary>? = null,
 
-    @Ignore
     @Embedded(prefix = "collections")
-    val collections: Array<ComicSummary>? = null,
+    val collections: ArrayList<ComicSummary>? = null,
 
-    @Ignore
     @Embedded(prefix = "collectedIssues")
-    val collectedIssues: Array<ComicSummary>? = null,
+    val collectedIssues: ArrayList<ComicSummary>? = null,
 
-    @Ignore
     @Embedded(prefix = "dates")
-    val dates: Array<ComicDate>? = null,
+    val dates: ArrayList<ComicDate>? = null,
 
-    @Ignore
     @Embedded(prefix = "prices")
-    val prices: Array<ComicPrice>? = null,
+    val prices: ArrayList<ComicPrice>? = null,
 
     @Embedded(prefix = "thumbnail")
     var thumbnail: Image? = null,
 
-    @Ignore
     @Embedded(prefix = "images")
-    val images: Array<Image>? = null,
+    val images: ArrayList<Image>? = null,
 
     @Embedded(prefix = "creators")
     var creators: CreatorList? = null,
@@ -121,17 +113,17 @@ data class Comic(
         parcel.readString(),
         parcel.readString(),
         parcel.readInt(),
-        parcel.createTypedArray(TextObject.CREATOR),
+        parcel.createTypedArrayList(TextObject.CREATOR),
         parcel.readString(),
-        parcel.createTypedArray(Url.CREATOR) as? Array<Url>,
+        parcel.createTypedArrayList(Url.CREATOR),
         parcel.readParcelable(SeriesSummary::class.java.classLoader),
-        parcel.createTypedArray(ComicSummary.CREATOR) as? Array<ComicSummary>,
-        parcel.createTypedArray(ComicSummary.CREATOR) as? Array<ComicSummary>,
-        parcel.createTypedArray(ComicSummary.CREATOR) as? Array<ComicSummary>,
-        parcel.createTypedArray(ComicDate.CREATOR) as? Array<ComicDate>,
-        parcel.createTypedArray(ComicPrice.CREATOR) as? Array<ComicPrice>,
+        parcel.createTypedArrayList(ComicSummary.CREATOR),
+        parcel.createTypedArrayList(ComicSummary.CREATOR),
+        parcel.createTypedArrayList(ComicSummary.CREATOR),
+        parcel.createTypedArrayList(ComicDate.CREATOR),
+        parcel.createTypedArrayList(ComicPrice.CREATOR),
         parcel.readParcelable(Image::class.java.classLoader),
-        parcel.createTypedArray(Image.CREATOR) as? Array<Image>,
+        parcel.createTypedArrayList(Image.CREATOR),
         parcel.readParcelable(CreatorList::class.java.classLoader),
         parcel.readParcelable(CharacterList::class.java.classLoader),
         parcel.readParcelable(StoryList::class.java.classLoader),
@@ -153,17 +145,17 @@ data class Comic(
         parcel.writeString(issn)
         parcel.writeString(format)
         parcel.writeInt(pageCount ?: 0)
-        parcel.writeParcelableArray(textObjects, flags)
+        parcel.writeTypedList(textObjects)
         parcel.writeString(resourceURI)
-        parcel.writeParcelableArray(urls, flags)
+        parcel.writeTypedList(urls)
         parcel.writeParcelable(series, flags)
-        parcel.writeParcelableArray(variants, flags)
-        parcel.writeParcelableArray(collections, flags)
-        parcel.writeParcelableArray(collectedIssues, flags)
-        parcel.writeParcelableArray(dates, flags)
-        parcel.writeParcelableArray(prices, flags)
+        parcel.writeTypedList(variants)
+        parcel.writeTypedList(collections)
+        parcel.writeTypedList(collectedIssues)
+        parcel.writeTypedList(dates)
+        parcel.writeTypedList(prices)
         parcel.writeParcelable(thumbnail, flags)
-        parcel.writeParcelableArray(images, flags)
+        parcel.writeTypedList(images)
         parcel.writeParcelable(creators, flags)
         parcel.writeParcelable(characters, flags)
         parcel.writeParcelable(stories, flags)

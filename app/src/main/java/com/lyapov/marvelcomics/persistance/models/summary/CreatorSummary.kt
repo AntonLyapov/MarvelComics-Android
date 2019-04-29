@@ -14,10 +14,12 @@ import androidx.room.Entity
 @Entity(tableName = "EventSummaries")
 class CreatorSummary(
     resourceURI: String?,
-    name: String?
-) : BaseSummary(resourceURI, name) {
+    name: String?,
+    role: String?
+) : BaseRoleSummary(resourceURI, name, role) {
 
     constructor(parcel: Parcel) : this(
+        parcel.readString(),
         parcel.readString(),
         parcel.readString()
     )

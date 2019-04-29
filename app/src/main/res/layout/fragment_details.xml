@@ -42,7 +42,12 @@
                     tools:text="Published: ....."/>
 
             <com.lyapov.marvelcomics.ui.details.content.views.ListDetailsView
-                    android:id="@+id/listDetailsView"
+                    android:id="@+id/creatorsDetailsView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            <com.lyapov.marvelcomics.ui.details.content.views.ListDetailsView
+                    android:id="@+id/textsDetailsView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
